@@ -13,6 +13,9 @@
 @interface User : MTLModel <MTLJSONSerializing>
 
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *thumbImageUrl;
+@property (nonatomic, strong) NSString *profileImageUrl;
+@property (nonatomic, strong) NSString *screenName;
 
 + (User *)currentUser;
 

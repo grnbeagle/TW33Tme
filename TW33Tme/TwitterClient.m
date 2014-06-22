@@ -56,19 +56,11 @@
                         requestToken:[BDBOAuthToken tokenWithQueryString:queryString]
                              success:^(BDBOAuthToken *accessToken) {
                                  NSLog(@"[TwitterClient finishLogin] success");
-                                 // Save user id here "user_id"
                                  [self.requestSerializer saveAccessToken:accessToken];
                                  [User populateCurrentUser];
                                  if (completion) {
                                      completion();
                                  }
-
-
-//                                 [self homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//                                     //NSLog(@"response: %@", responseObject);
-//                                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//                                     NSLog(@"error");
-//                                 }];
                              } failure:^(NSError *error) {
                                  NSLog(@"[TwitterClient finishLogin] failure: %@", error.description);
                              }];
@@ -84,5 +76,10 @@
     return [self GET:@"1.1/account/verify_credentials.json" parameters:nil success:success failure:failure];
 }
 
-
+- (AFHTTPRequestOperation *)updateWithStatus:(NSString *)status
+                                     success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                     failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *parameters = @{@"status": status};
+    return [self POST:@"1.1/statuses/update.json" parameters:parameters success:success failure:failure];
+}
 @end

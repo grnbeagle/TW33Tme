@@ -64,7 +64,8 @@
             if (parameters[@"oauth_token"] && parameters[@"oauth_verifier"]) {
                 [[TwitterClient instance] finishLoginWith:url.query withCompletion:^{
                     HomeViewController *homeViewController = [[HomeViewController alloc] init];
-                    [self.window setRootViewController:homeViewController];
+                    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+                    [self.window setRootViewController:navigationController];
                 }];
             }
         }

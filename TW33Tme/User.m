@@ -15,9 +15,18 @@
 static User *currentUser = nil;
 static NSString *storeKey = @"current_user";
 
+- (NSString *)profileImageUrl {
+    if (!_profileImageUrl) {
+        _profileImageUrl = [self.thumbImageUrl stringByReplacingOccurrencesOfString:@"_normal" withString:@"_bigger"];
+    }
+    return _profileImageUrl;
+}
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
-             @"name": @"name"
+             @"name": @"name",
+             @"thumbImageUrl": @"profile_image_url",
+             @"screenName": @"screen_name"
              };
 }
 

@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
+                <outlet property="tableView" destination="WKa-hq-Fb7" id="u4F-6L-5cP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,8 +22,19 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="WKa-hq-Fb7">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="WKa-hq-Fb7" secondAttribute="bottom" id="Ofp-2r-GxY"/>
+                <constraint firstItem="WKa-hq-Fb7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bFt-Pm-Ug7"/>
+                <constraint firstAttribute="trailing" secondItem="WKa-hq-Fb7" secondAttribute="trailing" id="cHz-P5-oAg"/>
+                <constraint firstItem="WKa-hq-Fb7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mvg-d1-Hhv"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>

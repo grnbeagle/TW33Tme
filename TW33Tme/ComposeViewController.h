@@ -1,5 +1,5 @@
 //
-//  HomeViewController.h
+//  ComposeViewController.h
 //  TW33Tme
 //
 //  Created by Amie Kweon on 6/21/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ComposeViewController : UIViewController <UITextViewDelegate>
 
 @end
