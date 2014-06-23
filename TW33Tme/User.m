@@ -47,14 +47,32 @@ static NSString *storeKey = @"current_user";
     [defaults synchronize];
 }
 
-+ (void)populateCurrentUser {
+//+ (void)populateCurrentUser {
+//    TwitterClient *client = [TwitterClient instance];
+//    [client verifyCredentialWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSLog(@"[User populateCurrentUser] success");
+//        User *user = [MTLJSONAdapter modelOfClass:[User class] fromJSONDictionary:responseObject error:nil];
+//        [User setCurrentUser:user];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"[User populateCurrentUser] failure: %@", error.description);
+//    }];
+//}
+
++ (void)verifyCurrentUserWithSuccess:(void (^) ())success
+                             failure:(void (^) (NSError *error))failure {
     TwitterClient *client = [TwitterClient instance];
     [client verifyCredentialWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"[User populateCurrentUser] success");
+        NSLog(@"[User verifyCurrentUser] success");
         User *user = [MTLJSONAdapter modelOfClass:[User class] fromJSONDictionary:responseObject error:nil];
         [User setCurrentUser:user];
+        if (success) {
+            success();
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[User populateCurrentUser] failure: %@", error.description);
+        NSLog(@"[User verifyCurrentUser] failure: %@", error.description);
+        if (failure) {
+            failure(error);
+        }
     }];
 }
 

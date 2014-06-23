@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message goes here" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="242" translatesAutoresizingMaskIntoConstraints="NO" id="OLe-ti-2pz">
-                                <rect key="frame" x="0.0" y="21" width="242" height="16"/>
+                                <rect key="frame" x="0.0" y="16" width="242" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <nil key="highlightedColor"/>
@@ -38,7 +38,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6z-ih-Ucq">
-                                <rect key="frame" x="0.0" y="47" width="39" height="54"/>
+                                <rect key="frame" x="0.0" y="42" width="39" height="59"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Reply">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,14 +48,14 @@
                                 <rect key="frame" x="42" y="0.0" width="173" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fij-ec-dhb">
                                 <rect key="frame" x="220" y="0.0" width="22" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -70,23 +70,26 @@
                             <constraint firstItem="k6z-ih-Ucq" firstAttribute="top" secondItem="OLe-ti-2pz" secondAttribute="bottom" constant="10" id="Kzh-TV-IIU"/>
                             <constraint firstAttribute="trailing" secondItem="OLe-ti-2pz" secondAttribute="trailing" id="Mh6-NQ-iXN"/>
                             <constraint firstItem="k6z-ih-Ucq" firstAttribute="leading" secondItem="O6i-4B-IH4" secondAttribute="leading" id="aIg-hK-72s"/>
-                            <constraint firstItem="OLe-ti-2pz" firstAttribute="top" secondItem="TCr-vY-Z1R" secondAttribute="bottom" constant="5" id="dQV-fF-E1f"/>
+                            <constraint firstItem="OLe-ti-2pz" firstAttribute="top" secondItem="TCr-vY-Z1R" secondAttribute="bottom" id="dQV-fF-E1f"/>
                             <constraint firstItem="fij-ec-dhb" firstAttribute="leading" secondItem="gzm-Dp-viW" secondAttribute="trailing" constant="5" id="eW3-5c-jkY"/>
                             <constraint firstItem="TCr-vY-Z1R" firstAttribute="top" secondItem="O6i-4B-IH4" secondAttribute="top" id="kP0-Zw-vof"/>
                             <constraint firstItem="OLe-ti-2pz" firstAttribute="leading" secondItem="O6i-4B-IH4" secondAttribute="leading" id="uWM-Cp-4l7"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Retweet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pE-22-fv8">
-                        <rect key="frame" x="14" y="7" width="289" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retweet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pE-22-fv8">
+                        <rect key="frame" x="46" y="8" width="45" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="7pE-22-fv8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="7s7-bC-4fR"/>
                     <constraint firstItem="O6i-4B-IH4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="33" id="KVr-Ko-bfI"/>
                     <constraint firstAttribute="bottom" secondItem="O6i-4B-IH4" secondAttribute="bottom" constant="5" id="Lpt-Nm-R3L"/>
                     <constraint firstItem="O6i-4B-IH4" firstAttribute="leading" secondItem="vxL-4e-jGx" secondAttribute="trailing" constant="7" id="MdI-ha-T8t"/>
+                    <constraint firstItem="7pE-22-fv8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="46" id="NFn-Fk-5Ee"/>
                     <constraint firstItem="vxL-4e-jGx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="RdV-It-Wlj"/>
                     <constraint firstAttribute="trailing" secondItem="O6i-4B-IH4" secondAttribute="trailing" constant="10" id="eTF-rY-Tg0"/>
                     <constraint firstItem="vxL-4e-jGx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="33" id="mwm-Vq-zOB"/>
@@ -94,10 +97,14 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="imageView" destination="vxL-4e-jGx" id="vmt-Fa-XyN"/>
+                <outlet property="imageViewTopSpace" destination="mwm-Vq-zOB" id="4ct-w7-k9H"/>
                 <outlet property="nameLabel" destination="TCr-vY-Z1R" id="9kt-Xy-5Dp"/>
+                <outlet property="replyButton" destination="k6z-ih-Ucq" id="Z0v-sW-wue"/>
+                <outlet property="retweetLabel" destination="7pE-22-fv8" id="IR1-Kp-EhQ"/>
                 <outlet property="screenNameLabel" destination="gzm-Dp-viW" id="3w0-zF-ceQ"/>
                 <outlet property="textLabel" destination="OLe-ti-2pz" id="Z5e-Yh-HdA"/>
                 <outlet property="timeLabel" destination="fij-ec-dhb" id="CUq-2s-0LS"/>
+                <outlet property="viewTopSpace" destination="KVr-Ko-bfI" id="Zv2-TH-urF"/>
             </connections>
         </tableViewCell>
     </objects>

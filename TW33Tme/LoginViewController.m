@@ -7,7 +7,9 @@
 //
 
 #import "LoginViewController.h"
+#import "HomeViewController.h"
 #import "TwitterClient.h"
+#import "User.h"
 
 @interface LoginViewController ()
 
@@ -21,7 +23,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //[self onLoginButton:nil];
+        
     }
     return self;
 }
@@ -29,7 +31,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    if ([User currentUser] != nil) {
+        [User verifyCurrentUserWithSuccess:^{
+            HomeViewController *homeViewController = [[HomeViewController alloc] init];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+            [self presentViewController:navigationController animated:YES completion:nil];
+        } failure:^(NSError *error) {
+            // Saved access token not valid; login again
+            [[TwitterClient instance] startLogin];
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

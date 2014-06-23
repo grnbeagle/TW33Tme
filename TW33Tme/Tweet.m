@@ -15,9 +15,13 @@
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
+             @"id": @"id",
              @"text": @"text",
              @"user": @"user",
-             @"createdAt": @"created_at"
+             @"createdAt": @"created_at",
+             @"retweeted": @"retweeted",
+             @"retweetCount": @"retweet_count",
+             @"favoritesCount": @"favourites_count"
              };
 }
 

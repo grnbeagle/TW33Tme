@@ -8,8 +8,10 @@
 
 #import "HomeViewController.h"
 #import "ComposeViewController.h"
+#import "TweetViewController.h"
 #import "TwitterClient.h"
 #import "TweetCell.h"
+#import "UIView+SuperView.h"
 
 @interface HomeViewController ()
 
@@ -42,7 +44,6 @@
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self fetchData];
 
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
@@ -54,6 +55,10 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [self fetchData];
 }
 
 - (TweetCell *)stubCell {
@@ -82,8 +87,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
+    [cell.replyButton addTarget:self action:@selector(replyButtonClicked:) forControlEvents:UIControlEventTouchDown];
+
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+    TweetViewController *tweetViewController = [[TweetViewController alloc] init];
+    tweetViewController.tweet = self.tweets[indexPath.row];
+    [self.navigationController pushViewController:tweetViewController animated:YES];
 }
 
 - (void)fetchData {
@@ -121,5 +136,16 @@
                                      action:@selector(showCompose)];
     self.navigationItem.rightBarButtonItem = composeButton;
     self.edgesForExtendedLayout = UIRectEdgeNone;
+}
+
+-(void) replyButtonClicked:(id)sender {
+    TweetCell *cell = (TweetCell *)[sender findSuperViewWithClass:[TweetCell class]];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell: cell];
+
+    ComposeViewController *composeViewController = [[ComposeViewController alloc] init];
+    composeViewController.replyTo = self.tweets[indexPath.row];
+    UINavigationController *navBar = [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    [self presentViewController:navBar animated:YES completion:nil];
+
 }
 @end

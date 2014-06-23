@@ -1,17 +1,16 @@
 //
-//  TweetCell.h
+//  TweetViewController.h
 //  TW33Tme
 //
-//  Created by Amie Kweon on 6/21/14.
+//  Created by Amie Kweon on 6/22/14.
 //  Copyright (c) 2014 Amie Kweon. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
 
-@interface TweetCell : UITableViewCell
+@interface TweetViewController : UIViewController
 
 @property (strong, nonatomic) Tweet *tweet;
-@property (weak, nonatomic) IBOutlet UIButton *replyButton;
 
 @end

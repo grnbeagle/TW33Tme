@@ -16,11 +16,9 @@
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) NSDate *createdAt;
-
-// user
-// retweet
-// timestamp
-
-//+ (NSArray *)getHomeTimeline;
+@property NSNumber *retweetCount;
+@property NSNumber *favoritesCount;
+@property NSNumber *id;
+@property BOOL retweeted;
 
 @end

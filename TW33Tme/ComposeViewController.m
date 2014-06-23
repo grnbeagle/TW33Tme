@@ -43,6 +43,12 @@
     [Utils loadImageUrl:[[User currentUser] profileImageUrl] inImageView:self.imageView withAnimation:YES];
 
     self.textView.delegate = self;
+
+    if (self.replyTo != nil) {
+        self.textView.text = [NSString stringWithFormat:@"@%@", self.replyTo.user.screenName];
+        self.placeholderLabel.hidden = YES;
+        [self.textView becomeFirstResponder];
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -12,4 +12,7 @@
 
 + (void)loadImageUrl:(NSString *)url inImageView:(UIImageView *)imageView withAnimation:(BOOL)enableAnimation;
 
++ (UIColor *)getColorFrom:(CGFloat [3])rgb;
+
++ (UIColor *)getTwitterGray;
 @end

@@ -21,6 +21,8 @@
 
 + (void)setCurrentUser:(User *)user;
 
-+ (void)populateCurrentUser;
+//+ (void)populateCurrentUser;
 
++ (void)verifyCurrentUserWithSuccess:(void (^) ())success
+                             failure:(void (^) (NSError *error))failure;
 @end

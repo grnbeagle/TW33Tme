@@ -7,8 +7,25 @@
 //
 
 #import "TweetCell.h"
+#import "ComposeViewController.h"
 #import "Utils.h"
 #import "NSDate+DateTools.h"
+
+@interface TweetCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *retweetLabel;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewTopSpace;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewTopSpace;
+
+
+
+@end
 
 @implementation TweetCell
 
@@ -33,7 +50,23 @@
     self.textLabel.text = tweet.text;
     self.nameLabel.text = tweet.user.name;
     self.screenNameLabel.text = [NSString stringWithFormat:@"@%@",tweet.user.screenName];
+    self.screenNameLabel.textColor = [Utils getTwitterGray];
     self.timeLabel.text = tweet.createdAt.shortTimeAgoSinceNow;
+    self.timeLabel.textColor = [Utils getTwitterGray];
     [Utils loadImageUrl:tweet.user.profileImageUrl inImageView:self.imageView withAnimation:YES];
+    if (tweet.retweeted) {
+        self.retweetLabel.text = [NSString stringWithFormat:@"       %@ retweeted", tweet.user.name];
+        [self.retweetLabel setFrame:CGRectMake(0, 0, 200, 20)];
+        UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 16, 16)];
+        icon.contentMode = UIViewContentModeScaleAspectFit;
+        [icon setImage:[UIImage imageNamed:@"RetweetIcon"]];
+        [self.retweetLabel addSubview:icon];
+        self.retweetLabel.textColor = [Utils getTwitterGray];
+    } else {
+        [self.imageViewTopSpace setConstant:8];
+        [self.viewTopSpace setConstant:8];
+        self.retweetLabel.hidden = YES;
+    }
 }
+
 @end

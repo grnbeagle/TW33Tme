@@ -32,7 +32,6 @@
 }
 
 - (void)startLogin {
-    // TODO: do I need to keep this?
     [self.requestSerializer removeAccessToken];
 
     [self fetchRequestTokenWithPath:@"oauth/request_token"
@@ -57,10 +56,14 @@
                              success:^(BDBOAuthToken *accessToken) {
                                  NSLog(@"[TwitterClient finishLogin] success");
                                  [self.requestSerializer saveAccessToken:accessToken];
-                                 [User populateCurrentUser];
-                                 if (completion) {
-                                     completion();
-                                 }
+                                 [User verifyCurrentUserWithSuccess:^{
+                                     if (completion) {
+                                         completion();
+                                     }
+                                 } failure:^(NSError *error) {
+                                     NSLog(@"[TwitterClient finishLogin] verify failure: %@", error.description);
+                                 }];
+
                              } failure:^(NSError *error) {
                                  NSLog(@"[TwitterClient finishLogin] failure: %@", error.description);
                              }];
