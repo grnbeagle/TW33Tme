@@ -26,4 +26,8 @@
 - (AFHTTPRequestOperation *)updateWithStatus:(NSString *)status
                                      success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                      failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (AFHTTPRequestOperation *)retweetWithId:(NSNumber *)tweetId
+                                     success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                     failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

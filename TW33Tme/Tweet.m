@@ -8,10 +8,15 @@
 
 #import "Tweet.h"
 #import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
+#import "NSDictionary+MTLManipulationAdditions.h"
 #import "MTLValueTransformer.h"
 #import "TwitterClient.h"
 
 @implementation Tweet
+
+- (User *)author {
+    return (self.originalUser != nil) ? self.originalUser : self.user;
+}
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
@@ -20,12 +25,18 @@
              @"user": @"user",
              @"createdAt": @"created_at",
              @"retweeted": @"retweeted",
+             @"favorited": @"favorited",
              @"retweetCount": @"retweet_count",
-             @"favoritesCount": @"favourites_count"
+             @"favoritesCount": @"favourites_count",
+             @"originalUser": @"retweeted_status.user"
              };
 }
 
 + (NSValueTransformer *)userJSONTransformer {
+    return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[User class]];
+}
+
++ (NSValueTransformer *)originalUserJSONTransformer {
     return [NSValueTransformer mtl_JSONDictionaryTransformerWithModelClass:[User class]];
 }
 
@@ -44,4 +55,23 @@
     return dateFormatter;
 }
 
++ (NSValueTransformer *)retweetCountJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(id inObj) {
+        if (inObj == nil) {
+            return 0;
+        } else {
+            return inObj;
+        }
+    }];
+}
+
++ (NSValueTransformer *)favoritesCountJSONTransformer {
+    return [MTLValueTransformer transformerWithBlock:^id(id inObj) {
+        if (inObj == nil) {
+            return 0;
+        } else {
+            return inObj;
+        }
+    }];
+}
 @end

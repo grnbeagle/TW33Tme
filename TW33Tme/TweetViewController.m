@@ -47,28 +47,28 @@
     self.title = @"Tweet";
 
     self.textLabel.text = self.tweet.text;
-    self.nameLabel.text = self.tweet.user.name;
-    self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.user.screenName];
+    self.nameLabel.text = [self.tweet author].name;
+    self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", [self.tweet author].screenName];
+    self.screenNameLabel.textColor = [Utils getTwitterGray];
     self.timeLabel.text = self.tweet.createdAt.timeAgoSinceNow;
-    [Utils loadImageUrl:self.tweet.user.profileImageUrl inImageView:self.imageView withAnimation:YES];
+    self.timeLabel.textColor = [Utils getTwitterGray];
+    [Utils loadImageUrl:[self.tweet author].profileImageUrl inImageView:self.imageView withAnimation:YES];
     if (self.tweet.retweeted) {
         self.retweetLabel.text = [NSString stringWithFormat:@"%@ retweeted", self.tweet.user.name];
+        self.retweetLabel.textColor = [Utils getTwitterGray];
     } else {
         [self.imageViewTopConstraint setConstant:8];
         [self.nameLabelTopConstraint setConstant:8];
         self.retweetLabel.hidden = YES;
     }
 
-    NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    self.retweetCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
+    self.retweetWordLabel.text = (self.tweet.retweetCount > 2) ? @"RETWEETS" : @"RETWEET";
+    self.retweetWordLabel.textColor = [Utils getTwitterGray];
 
-    self.retweetCountLabel.text = [formatter stringFromNumber:self.tweet.retweetCount];
-    self.retweetWordLabel.text = ([self.tweet.retweetCount doubleValue] > 2) ? @"RETWEETS" : @"RETWEET";
-    if (self.tweet.favoritesCount == nil) {
-        self.tweet.favoritesCount = [NSNumber numberWithInt:0];
-    }
-    self.favoritesCountLabel.text = [formatter stringFromNumber:self.tweet.favoritesCount];
-    self.favoritesWordLabel.text = ([self.tweet.favoritesCount doubleValue] > 2) ? @"FAVORITES" : @"FAVORITE";
+    self.favoritesCountLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoritesCount];
+    self.favoritesWordLabel.text = (self.tweet.favoritesCount > 2) ? @"FAVORITES" : @"FAVORITE";
+    self.favoritesWordLabel.textColor = [Utils getTwitterGray];
 }
 
 - (void)didReceiveMemoryWarning

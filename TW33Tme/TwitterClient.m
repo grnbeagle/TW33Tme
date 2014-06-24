@@ -85,4 +85,10 @@
     NSDictionary *parameters = @{@"status": status};
     return [self POST:@"1.1/statuses/update.json" parameters:parameters success:success failure:failure];
 }
+
+- (AFHTTPRequestOperation *)retweetWithId:(NSNumber *)tweetId
+                                  success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                  failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    return [self POST:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", tweetId] parameters:nil success:success failure:failure];
+}
 @end

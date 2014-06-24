@@ -88,6 +88,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     [cell.replyButton addTarget:self action:@selector(replyButtonClicked:) forControlEvents:UIControlEventTouchDown];
+    [cell.retweetButton addTarget:self action:@selector(retweetButtonClicked:) forControlEvents:UIControlEventTouchDown];
 
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
@@ -138,7 +139,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
--(void) replyButtonClicked:(id)sender {
+- (void)replyButtonClicked:(id)sender {
     TweetCell *cell = (TweetCell *)[sender findSuperViewWithClass:[TweetCell class]];
     NSIndexPath *indexPath = [self.tableView indexPathForCell: cell];
 
@@ -146,6 +147,20 @@
     composeViewController.replyTo = self.tweets[indexPath.row];
     UINavigationController *navBar = [[UINavigationController alloc] initWithRootViewController:composeViewController];
     [self presentViewController:navBar animated:YES completion:nil];
+}
 
+- (void)retweetButtonClicked:(id)sender {
+    TweetCell *cell = (TweetCell *)[sender findSuperViewWithClass:[TweetCell class]];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell: cell];
+
+    Tweet *currentTweet = self.tweets[indexPath.row];
+    TwitterClient *client = [TwitterClient instance];
+    [client retweetWithId:currentTweet.id success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"[HomeViewController retweet] success");
+        currentTweet.retweetCount += 1;
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"[HomeViewController retweet] failure: %@", error.description);
+    }];
 }
 @end
