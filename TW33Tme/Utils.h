@@ -14,5 +14,7 @@
 
 + (UIColor *)getColorFrom:(CGFloat [3])rgb;
 
++ (UIColor *)getTwitterBlue;
+
 + (UIColor *)getTwitterGray;
 @end

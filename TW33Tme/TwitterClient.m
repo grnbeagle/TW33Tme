@@ -22,10 +22,14 @@
 
     // TODO: move keys
     dispatch_once(&onceToken, ^{
+//        instance = [[TwitterClient alloc]
+//                    initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]
+//                    consumerKey:@"oktJjqH6ZF1cFT6AGSB532une"
+//                    consumerSecret:@"pozqvOv9OXe8Gb8jqvKtzzBAgglGIkTtsbHGWEko47xQktIl2n"];
         instance = [[TwitterClient alloc]
                     initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]
-                    consumerKey:@"oktJjqH6ZF1cFT6AGSB532une"
-                    consumerSecret:@"pozqvOv9OXe8Gb8jqvKtzzBAgglGIkTtsbHGWEko47xQktIl2n"];
+                    consumerKey:@"rsofhkUa3oEiNSj8KkRCuDLNr"
+                    consumerSecret:@"26xmmRTmSgy3sBbbmSl4xUciwW35F8KYjfLLrsBWfWuqsSAsud"];
     });
 
     return instance;
@@ -69,9 +73,10 @@
                              }];
 }
 
-- (AFHTTPRequestOperation *)homeTimelineWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
-                                            failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
-    return [self GET:@"1.1/statuses/home_timeline.json" parameters:nil success:success failure:failure];
+- (AFHTTPRequestOperation *)homeTimelineWithParams:(NSDictionary *)params
+                                           success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                           failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    return [self GET:@"1.1/statuses/home_timeline.json" parameters:params success:success failure:failure];
 }
 
 - (AFHTTPRequestOperation *)verifyCredentialWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
@@ -90,5 +95,25 @@
                                   success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                   failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
     return [self POST:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", tweetId] parameters:nil success:success failure:failure];
+}
+
+- (AFHTTPRequestOperation *)destroyWithId:(NSNumber *)tweetId
+                                        success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    return [self POST:[NSString stringWithFormat:@"1.1/statuses/destroy/%@.json", tweetId] parameters:nil success:success failure:failure];
+}
+
+- (AFHTTPRequestOperation *)favoriteWithId:(NSNumber *)tweetId
+                                   success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *parameters = @{@"id": tweetId};
+    return [self POST:@"1.1/favorites/create.json" parameters:parameters success:success failure:failure];
+}
+
+- (AFHTTPRequestOperation *)removeFavoriteWithId:(NSNumber *)tweetId
+                                         success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                         failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *parameters = @{@"id": tweetId};
+    return [self POST:@"1.1/favorites/destroy.json" parameters:parameters success:success failure:failure];
 }
 @end

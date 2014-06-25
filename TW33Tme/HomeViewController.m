@@ -12,6 +12,7 @@
 #import "TwitterClient.h"
 #import "TweetCell.h"
 #import "UIView+SuperView.h"
+#import "Tweet.h"
 
 @interface HomeViewController ()
 
@@ -22,6 +23,8 @@
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) NSMutableArray *tweets;
+
+@property NSNumber *sinceId; // The most recent id for pull to refresh
 @end
 
 @implementation HomeViewController
@@ -90,6 +93,8 @@
     [cell.replyButton addTarget:self action:@selector(replyButtonClicked:) forControlEvents:UIControlEventTouchDown];
     [cell.retweetButton addTarget:self action:@selector(retweetButtonClicked:) forControlEvents:UIControlEventTouchDown];
 
+    [cell.favoriteButton addTarget:self action:@selector(favoriteButtonClicked:) forControlEvents:UIControlEventTouchDown];
+
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -104,22 +109,43 @@
 
 - (void)fetchData {
     TwitterClient *client = [TwitterClient instance];
-    [client homeTimelineWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSError *error;
-        [self.tweets addObjectsFromArray:[MTLJSONAdapter
-                                          modelsOfClass:[Tweet class]
-                                          fromJSONArray:responseObject
-                                          error:&error]];
-        if (error) {
-            NSLog(@"[HomeViewController fetchData] transform error: %@", error.description);
-        }
-        [self.tableView reloadData];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    NSDictionary *params;
+    if ([self.sinceId doubleValue] > 0) {
+        params = @{ @"since_id": self.sinceId };
+    }
+    [client homeTimelineWithParams:params
+                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                               NSError *error;
+                               if (params) {
+                                   NSArray *newTweets = [MTLJSONAdapter
+                                                         modelsOfClass:[Tweet class]
+                                                         fromJSONArray:responseObject
+                                                         error:&error];
+                                   for (Tweet *tweet in newTweets) {
+                                       [self.tweets insertObject:tweet atIndex:0];
+                                   }
+                               } else {
+                                   [self.tweets addObjectsFromArray:[MTLJSONAdapter
+                                                                     modelsOfClass:[Tweet class]
+                                                                     fromJSONArray:responseObject
+                                                                     error:&error]];
+                               }
+                               if (error) {
+                                    NSLog(@"[HomeViewController fetchData] transform error: %@", error.description);
+                               }
+                               NSLog(@"[HomeViewController fetchData] success row count: %d", self.tweets.count);
+                               if (self.tweets.count > 0) {
+                                    self.sinceId = ((Tweet *)self.tweets[0]).id;
+                               }
+                               [self.tableView reloadData];
+    }
+                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[HomeViewController fetchData] error: %@", error.description);
     }];
 }
 
 - (void)refresh:(id)sender {
+    [self fetchData];
     [(UIRefreshControl *)sender endRefreshing];
 }
 
@@ -137,6 +163,9 @@
                                      action:@selector(showCompose)];
     self.navigationItem.rightBarButtonItem = composeButton;
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+
 }
 
 - (void)replyButtonClicked:(id)sender {
@@ -155,12 +184,60 @@
 
     Tweet *currentTweet = self.tweets[indexPath.row];
     TwitterClient *client = [TwitterClient instance];
-    [client retweetWithId:currentTweet.id success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"[HomeViewController retweet] success");
-        currentTweet.retweetCount += 1;
+    if (currentTweet.retweeted) {
+        NSNumber *retweetId = currentTweet.id;
+        if (currentTweet.retweetedStatus) {
+            retweetId = currentTweet.retweetedStatus.id;
+        }
+        [client destroyWithId:retweetId
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          NSLog(@"[HomeViewController retweet destroy] success");
+                          currentTweet.retweeted = NO;
+                          currentTweet.retweetCount -= 1;
+                          [cell refreshView:currentTweet];
+                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          NSLog(@"[HomeViewController retweet destroy] failure: %@", error.description);
+                      }];
+    } else {
+        [client retweetWithId:currentTweet.id
+                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                          NSLog(@"[HomeViewController retweet] success");
+                          NSLog(@"%@", responseObject);
+                          currentTweet.retweeted = YES;
+                          currentTweet.retweetCount += 1;
+                          currentTweet.retweetedStatus = [MTLJSONAdapter modelOfClass:Tweet.class fromJSONDictionary:responseObject error:nil];
+                          [cell refreshView:currentTweet];
+                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                          NSLog(@"[HomeViewController retweet] failure: %@", error.description);
+                      }];
+    }
+}
+- (void)favoriteButtonClicked:(id)sender {
+    TweetCell *cell = (TweetCell *)[sender findSuperViewWithClass:[TweetCell class]];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell: cell];
 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[HomeViewController retweet] failure: %@", error.description);
-    }];
+    Tweet *currentTweet = self.tweets[indexPath.row];
+    TwitterClient *client = [TwitterClient instance];
+    if (currentTweet.favorited) {
+        [client removeFavoriteWithId:currentTweet.id
+                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                           NSLog(@"[HomeViewController unfavorite] success");
+                           currentTweet.favorited = NO;
+                           currentTweet.favouritesCount -= 1;
+                           [cell refreshView:currentTweet];
+                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                           NSLog(@"[HomeViewController unfavorite] failure: %@", error.description);
+                       }];
+    } else {
+        [client favoriteWithId:currentTweet.id
+                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                           NSLog(@"[HomeViewController favorite] success");
+                           currentTweet.favorited = YES;
+                           currentTweet.favouritesCount += 1;
+                           [cell refreshView:currentTweet];
+                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                           NSLog(@"[HomeViewController favorite] failure: %@", error.description);
+                       }];
+    }
 }
 @end

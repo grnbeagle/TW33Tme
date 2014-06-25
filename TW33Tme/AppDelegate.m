@@ -11,12 +11,15 @@
 #import "HomeViewController.h"
 #import "TwitterClient.h"
 #import "NSURL+dictionaryFromQueryString.h"
+#import "Utils.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [[UINavigationBar appearance] setBarTintColor:[Utils getTwitterBlue]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
     self.window.rootViewController = loginViewController;

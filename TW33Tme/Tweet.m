@@ -27,7 +27,7 @@
              @"retweeted": @"retweeted",
              @"favorited": @"favorited",
              @"retweetCount": @"retweet_count",
-             @"favoritesCount": @"favourites_count",
+             @"favouritesCount": @"favourites_count",
              @"originalUser": @"retweeted_status.user"
              };
 }
@@ -65,7 +65,7 @@
     }];
 }
 
-+ (NSValueTransformer *)favoritesCountJSONTransformer {
++ (NSValueTransformer *)favouritesCountJSONTransformer {
     return [MTLValueTransformer transformerWithBlock:^id(id inObj) {
         if (inObj == nil) {
             return 0;

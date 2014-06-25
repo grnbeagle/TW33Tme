@@ -38,6 +38,11 @@
     return [UIColor colorWithRed:rgb[0]/255.0f green:rgb[1]/255.0f blue:rgb[2]/255.0f alpha:1];
 }
 
++ (UIColor *)getTwitterBlue {
+    CGFloat colors[3] ={85, 172, 238};
+    return [Utils getColorFrom:colors];
+}
+
 + (UIColor *)getTwitterGray {
     CGFloat colors[3] ={117, 135, 149};
     return [Utils getColorFrom:colors];

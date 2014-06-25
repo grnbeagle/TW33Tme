@@ -22,9 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewTopSpace;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewTopSpace;
+@property (weak, nonatomic) IBOutlet UIView *retweetView;
 
-@property (strong, nonatomic) UILabel *retweetCountLabel;
-@property (strong, nonatomic) UILabel *favCountLabel;
 @end
 
 @implementation TweetCell
@@ -60,64 +59,40 @@
     [Utils loadImageUrl:[tweet author].profileImageUrl inImageView:self.imageView withAnimation:YES];
 
     if (tweet.retweeted) {
-        if (!self.retweetLabel) {
-            self.retweetLabel.text = [NSString stringWithFormat:@"       %@ retweeted", tweet.user.name];
-            [self.retweetLabel setFrame:CGRectMake(0, 0, 200, 20)];
-            UIImageView *icon = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 16, 16)];
-            icon.contentMode = UIViewContentModeScaleAspectFit;
-            [icon setImage:retweetIcon];
-            [self.retweetLabel addSubview:icon];
-            self.retweetLabel.textColor = [Utils getTwitterGray];
-        }
+        self.retweetView.hidden = NO;
+        self.retweetLabel.text = [NSString stringWithFormat:@"%@ retweeted", tweet.user.name];
+        [self.imageViewTopSpace setConstant:30];
+        [self.viewTopSpace setConstant:30];
+        self.retweetLabel.textColor = [Utils getTwitterGray];
     } else {
         [self.imageViewTopSpace setConstant:8];
         [self.viewTopSpace setConstant:8];
-        self.retweetLabel.hidden = YES;
+        self.retweetView.hidden = YES;
     }
 
     // Reply button
-    UIImageView *replyIconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6, 14, 10)];
-    [replyIconView setImage:replyIcon];
     [self.replyButton setTitle:@"" forState:UIControlStateNormal];
-    [self.replyButton addSubview:replyIconView];
+    [self.replyButton setBackgroundImage:replyIcon forState:UIControlStateNormal];
 
-    if (!self.retweetCountLabel) {
-        // Retweet button
-        UIImageView *retweetIconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 6, 16, 10)];
-        [retweetIconView setImage:retweetIcon];
+    [self.retweetButton setTitle:@"" forState:UIControlStateNormal];
+    [self.retweetButton setBackgroundImage:retweetIcon forState:UIControlStateNormal];
 
-        self.retweetCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 80, 20)];
-        self.retweetCountLabel.textColor = [Utils getTwitterGray];
-        [self.retweetCountLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12]];
-        [self.retweetButton setTitle:@"" forState:UIControlStateNormal];
-        [self.retweetButton addSubview:self.retweetCountLabel];
-        [self.retweetButton addSubview:retweetIconView];
-        if (tweet.retweeted) {
-            self.retweetButton.enabled = NO;
-        }
-        [self.retweetCountLabel setText:[NSString stringWithFormat:@"%d", tweet.retweetCount]];
-    }
+    [self.favoriteButton setTitle:@"" forState:UIControlStateNormal];
+    [self.favoriteButton setBackgroundImage:favIcon forState:UIControlStateNormal];
 
-    if (!self.favCountLabel) {
-        // Favorite button
-        UIImageView *favIconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 4, 14, 12)];
-        [favIconView setImage:favIcon];
-
-        self.favCountLabel = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 80, 20)];
-        self.favCountLabel.textColor = [Utils getTwitterGray];
-        [self.favCountLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:12]];
-        [self.favoriteButton setTitle:@"" forState:UIControlStateNormal];
-        [self.favoriteButton addSubview:self.favCountLabel];
-        [self.favoriteButton addSubview:favIconView];
-        if (tweet.favorited) {
-            self.favoriteButton.enabled = NO;
-        }
-        [self.favCountLabel setText:[NSString stringWithFormat:@"%d", tweet.favoritesCount]];
-    }
+    [self refreshView:tweet];
 }
 
-- (void)refreshCount {
-    [self.retweetCountLabel setText:[NSString stringWithFormat:@"%d", self.tweet.retweetCount]];
-    [self.favCountLabel setText:[NSString stringWithFormat:@"%d", self.tweet.favoritesCount]];
+- (void)refreshView:(Tweet *)tweet {
+    if (tweet.retweeted) {
+        [self.retweetButton setAlpha:0.5];
+    } else {
+        [self.retweetButton setAlpha:1];
+    }
+    if (tweet.favorited) {
+        [self.favoriteButton setAlpha:0.5];
+    } else {
+        [self.favoriteButton setAlpha:1];
+    }
 }
 @end

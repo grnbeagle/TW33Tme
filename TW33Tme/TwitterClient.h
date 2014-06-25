@@ -17,7 +17,8 @@
 
 - (void)finishLoginWith:(NSString *)queryString withCompletion:(void (^) ())completion;
 
-- (AFHTTPRequestOperation *)homeTimelineWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+- (AFHTTPRequestOperation *)homeTimelineWithParams:(NSDictionary *)params
+                                           success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                             failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 
 - (AFHTTPRequestOperation *)verifyCredentialWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
@@ -30,4 +31,16 @@
 - (AFHTTPRequestOperation *)retweetWithId:(NSNumber *)tweetId
                                      success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                      failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (AFHTTPRequestOperation *)destroyWithId:(NSNumber *)tweetId
+                                  success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                  failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (AFHTTPRequestOperation *)favoriteWithId:(NSNumber *)tweetId
+                                  success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                  failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (AFHTTPRequestOperation *)removeFavoriteWithId:(NSNumber *)tweetId
+                                   success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

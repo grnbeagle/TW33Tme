@@ -16,5 +16,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
-- (void)refreshCount;
+- (void)refreshView:(Tweet *)tweet;
 @end
