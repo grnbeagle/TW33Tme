@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-#import "HomeViewController.h"
+#import "ContainerViewController.h"
 #import "TwitterClient.h"
 #import "NSURL+dictionaryFromQueryString.h"
 #import "Utils.h"
@@ -19,12 +19,11 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [[UINavigationBar appearance] setBarTintColor:[Utils getTwitterBlue]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
     self.window.rootViewController = loginViewController;
 
-    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -66,9 +65,8 @@
             NSDictionary *parameters = [url dictionaryFromQueryString];
             if (parameters[@"oauth_token"] && parameters[@"oauth_verifier"]) {
                 [[TwitterClient instance] finishLoginWith:url.query withCompletion:^{
-                    HomeViewController *homeViewController = [[HomeViewController alloc] init];
-                    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-                    [self.window setRootViewController:navigationController];
+                    ContainerViewController *containerViewController = [[ContainerViewController alloc] init];
+                    [self.window setRootViewController:containerViewController];
                 }];
             }
         }

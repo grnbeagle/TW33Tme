@@ -7,7 +7,8 @@
 //
 
 #import "LoginViewController.h"
-#import "HomeViewController.h"
+//#import "HomeViewController.h"
+#import "ContainerViewController.h"
 #import "TwitterClient.h"
 #import "User.h"
 
@@ -34,9 +35,11 @@
 
     if ([User currentUser] != nil) {
         [User verifyCurrentUserWithSuccess:^{
-            HomeViewController *homeViewController = [[HomeViewController alloc] init];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-            [self presentViewController:navigationController animated:YES completion:nil];
+//            HomeViewController *homeViewController = [[HomeViewController alloc] init];
+//            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+//            [self presentViewController:navigationController animated:YES completion:nil];
+            ContainerViewController *containerViewController = [[ContainerViewController alloc] init];
+            [self presentViewController:containerViewController animated:YES completion:nil];
         } failure:^(NSError *error) {
             // Saved access token not valid; login again
             [[TwitterClient instance] startLogin];

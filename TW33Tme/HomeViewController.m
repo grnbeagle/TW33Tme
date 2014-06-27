@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Amie Kweon. All rights reserved.
 //
 
+#import "ContainerViewController.h"
 #import "HomeViewController.h"
 #import "ComposeViewController.h"
 #import "TweetViewController.h"
@@ -161,11 +162,14 @@
                                      style:UIBarButtonItemStylePlain
                                      target:self
                                      action:@selector(showCompose)];
-    self.navigationItem.rightBarButtonItem = composeButton;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
+    UINavigationBar *navBar = ((ContainerViewController *)self.parentViewController).navigationBarView;
+    UINavigationItem* item = [[UINavigationItem alloc] initWithTitle:@"Home"];
+    item.rightBarButtonItem = composeButton;
+    [navBar pushNavigationItem:item animated:YES];
+
+    navBar.tintColor = [UIColor whiteColor];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
 - (void)replyButtonClicked:(id)sender {

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		532EC6FB19580C330046688C /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC6FA19580C330046688C /* TweetCell.m */; };
 		532EC6FE19581D880046688C /* UIView+SuperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC6FD19581D880046688C /* UIView+SuperView.m */; };
+		532EC703195D50270046688C /* ContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC701195D50270046688C /* ContainerViewController.xib */; };
+		532EC705195D51DF0046688C /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC704195D51DF0046688C /* ContainerViewController.m */; };
+		532EC709195D53BE0046688C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC707195D53BE0046688C /* ProfileViewController.m */; };
+		532EC70A195D53BE0046688C /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC708195D53BE0046688C /* ProfileViewController.xib */; };
 		53667490195421E80087AAFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5366748F195421E80087AAFB /* Foundation.framework */; };
 		53667492195421E80087AAFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53667491195421E80087AAFB /* CoreGraphics.framework */; };
 		53667494195421E80087AAFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53667493195421E80087AAFB /* UIKit.framework */; };
@@ -53,6 +57,12 @@
 		532EC6FA19580C330046688C /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
 		532EC6FC19581D880046688C /* UIView+SuperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SuperView.h"; sourceTree = "<group>"; };
 		532EC6FD19581D880046688C /* UIView+SuperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SuperView.m"; sourceTree = "<group>"; };
+		532EC6FF195D50270046688C /* ContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContainerViewController.h; sourceTree = "<group>"; };
+		532EC701195D50270046688C /* ContainerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContainerViewController.xib; sourceTree = "<group>"; };
+		532EC704195D51DF0046688C /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
+		532EC706195D53BE0046688C /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		532EC707195D53BE0046688C /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		532EC708195D53BE0046688C /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		5366748C195421E80087AAFB /* TW33Tme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TW33Tme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5366748F195421E80087AAFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		53667491195421E80087AAFB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -227,6 +237,12 @@
 				536674EB19579EDA0087AAFB /* TweetViewController.h */,
 				536674F01957BB7D0087AAFB /* TweetViewController.m */,
 				536674ED19579EDA0087AAFB /* TweetViewController.xib */,
+				532EC6FF195D50270046688C /* ContainerViewController.h */,
+				532EC704195D51DF0046688C /* ContainerViewController.m */,
+				532EC701195D50270046688C /* ContainerViewController.xib */,
+				532EC706195D53BE0046688C /* ProfileViewController.h */,
+				532EC707195D53BE0046688C /* ProfileViewController.m */,
+				532EC708195D53BE0046688C /* ProfileViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -329,12 +345,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				532EC70A195D53BE0046688C /* ProfileViewController.xib in Resources */,
 				5366749A195421E80087AAFB /* InfoPlist.strings in Resources */,
 				536674EF19579EDA0087AAFB /* TweetViewController.xib in Resources */,
 				536674E81956ADAA0087AAFB /* ComposeViewController.xib in Resources */,
 				536674DE195672790087AAFB /* TweetCell.xib in Resources */,
 				536674A2195421E80087AAFB /* Images.xcassets in Resources */,
 				536674C5195426070087AAFB /* LoginViewController.xib in Resources */,
+				532EC703195D50270046688C /* ContainerViewController.xib in Resources */,
 				536674D1195667470087AAFB /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,7 +407,9 @@
 			files = (
 				536674F11957BB7D0087AAFB /* TweetViewController.m in Sources */,
 				536674CA19556B2A0087AAFB /* User.m in Sources */,
+				532EC705195D51DF0046688C /* ContainerViewController.m in Sources */,
 				536674C71954266A0087AAFB /* LoginViewController.m in Sources */,
+				532EC709195D53BE0046688C /* ProfileViewController.m in Sources */,
 				532EC6FB19580C330046688C /* TweetCell.m in Sources */,
 				536674E319567AC90087AAFB /* Utils.m in Sources */,
 				532EC6FE19581D880046688C /* UIView+SuperView.m in Sources */,
