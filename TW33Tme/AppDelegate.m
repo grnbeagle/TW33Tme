@@ -9,9 +9,13 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "ContainerViewController.h"
+#import "MainViewController.h"
 #import "TwitterClient.h"
 #import "NSURL+dictionaryFromQueryString.h"
 #import "Utils.h"
+
+// Temporary
+#import "MenuViewController.h"
 
 @implementation AppDelegate
 
@@ -21,8 +25,14 @@
     [[UINavigationBar appearance] setBarTintColor:[Utils getTwitterBlue]];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    LoginViewController *loginViewController = [[LoginViewController alloc] init];
-    self.window.rootViewController = loginViewController;
+    MainViewController *mainViewController = [[MainViewController alloc] init];
+    self.window.rootViewController = mainViewController;
+
+//    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+//    self.window.rootViewController = loginViewController;
+
+//    MenuViewController *menuViewController = [[MenuViewController alloc] init];
+//    self.window.rootViewController = menuViewController;
 
     [self.window makeKeyAndVisible];
     return YES;

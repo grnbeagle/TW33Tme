@@ -17,4 +17,6 @@
 + (UIColor *)getTwitterBlue;
 
 + (UIColor *)getTwitterGray;
+
++ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 @end

@@ -24,6 +24,7 @@
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8d-u9-G72" userLabel="Container View">
                     <rect key="frame" x="0.0" y="69" width="320" height="450"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <gestureRecognizers/>
                 </view>
                 <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7m-7L-clw">
                     <rect key="frame" x="0.0" y="519" width="320" height="49"/>
@@ -34,6 +35,5 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <tabBarItem title="Item" id="G5I-Ld-Dmd"/>
     </objects>
 </document>

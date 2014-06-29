@@ -170,6 +170,8 @@
 
     navBar.tintColor = [UIColor whiteColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+
+    [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 }
 
 - (void)replyButtonClicked:(id)sender {

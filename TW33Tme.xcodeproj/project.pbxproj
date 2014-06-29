@@ -13,6 +13,14 @@
 		532EC705195D51DF0046688C /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC704195D51DF0046688C /* ContainerViewController.m */; };
 		532EC709195D53BE0046688C /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC707195D53BE0046688C /* ProfileViewController.m */; };
 		532EC70A195D53BE0046688C /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC708195D53BE0046688C /* ProfileViewController.xib */; };
+		532EC70F195F40DE0046688C /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC70D195F40DD0046688C /* MenuViewController.xib */; };
+		532EC711195F41350046688C /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC710195F41350046688C /* MenuViewController.m */; };
+		532EC716195F421E0046688C /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC714195F421E0046688C /* MenuCell.xib */; };
+		532EC71C195F46610046688C /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC71B195F46610046688C /* MenuCell.m */; };
+		532EC720195FF8A90046688C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC71E195FF8A90046688C /* MainViewController.m */; };
+		532EC721195FF8A90046688C /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC71F195FF8A90046688C /* MainViewController.xib */; };
+		532EC726196013DD0046688C /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC724196013DD0046688C /* PersonCell.xib */; };
+		532EC7281960145A0046688C /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC7271960145A0046688C /* PersonCell.m */; };
 		53667490195421E80087AAFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5366748F195421E80087AAFB /* Foundation.framework */; };
 		53667492195421E80087AAFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53667491195421E80087AAFB /* CoreGraphics.framework */; };
 		53667494195421E80087AAFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53667493195421E80087AAFB /* UIKit.framework */; };
@@ -63,6 +71,18 @@
 		532EC706195D53BE0046688C /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		532EC707195D53BE0046688C /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		532EC708195D53BE0046688C /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		532EC70B195F40DD0046688C /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		532EC70D195F40DD0046688C /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
+		532EC710195F41350046688C /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		532EC712195F421E0046688C /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
+		532EC714195F421E0046688C /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		532EC71B195F46610046688C /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
+		532EC71D195FF8A90046688C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		532EC71E195FF8A90046688C /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		532EC71F195FF8A90046688C /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		532EC722196013DD0046688C /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCell.h; sourceTree = "<group>"; };
+		532EC724196013DD0046688C /* PersonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonCell.xib; sourceTree = "<group>"; };
+		532EC7271960145A0046688C /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCell.m; sourceTree = "<group>"; };
 		5366748C195421E80087AAFB /* TW33Tme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TW33Tme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5366748F195421E80087AAFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		53667491195421E80087AAFB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -243,6 +263,12 @@
 				532EC706195D53BE0046688C /* ProfileViewController.h */,
 				532EC707195D53BE0046688C /* ProfileViewController.m */,
 				532EC708195D53BE0046688C /* ProfileViewController.xib */,
+				532EC70B195F40DD0046688C /* MenuViewController.h */,
+				532EC710195F41350046688C /* MenuViewController.m */,
+				532EC70D195F40DD0046688C /* MenuViewController.xib */,
+				532EC71D195FF8A90046688C /* MainViewController.h */,
+				532EC71E195FF8A90046688C /* MainViewController.m */,
+				532EC71F195FF8A90046688C /* MainViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -264,6 +290,12 @@
 				532EC6FA19580C330046688C /* TweetCell.m */,
 				536674DA195672790087AAFB /* TweetCell.h */,
 				536674DC195672790087AAFB /* TweetCell.xib */,
+				532EC712195F421E0046688C /* MenuCell.h */,
+				532EC71B195F46610046688C /* MenuCell.m */,
+				532EC714195F421E0046688C /* MenuCell.xib */,
+				532EC722196013DD0046688C /* PersonCell.h */,
+				532EC7271960145A0046688C /* PersonCell.m */,
+				532EC724196013DD0046688C /* PersonCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -347,11 +379,15 @@
 			files = (
 				532EC70A195D53BE0046688C /* ProfileViewController.xib in Resources */,
 				5366749A195421E80087AAFB /* InfoPlist.strings in Resources */,
+				532EC726196013DD0046688C /* PersonCell.xib in Resources */,
 				536674EF19579EDA0087AAFB /* TweetViewController.xib in Resources */,
 				536674E81956ADAA0087AAFB /* ComposeViewController.xib in Resources */,
 				536674DE195672790087AAFB /* TweetCell.xib in Resources */,
+				532EC716195F421E0046688C /* MenuCell.xib in Resources */,
 				536674A2195421E80087AAFB /* Images.xcassets in Resources */,
+				532EC721195FF8A90046688C /* MainViewController.xib in Resources */,
 				536674C5195426070087AAFB /* LoginViewController.xib in Resources */,
+				532EC70F195F40DE0046688C /* MenuViewController.xib in Resources */,
 				532EC703195D50270046688C /* ContainerViewController.xib in Resources */,
 				536674D1195667470087AAFB /* HomeViewController.xib in Resources */,
 			);
@@ -408,6 +444,8 @@
 				536674F11957BB7D0087AAFB /* TweetViewController.m in Sources */,
 				536674CA19556B2A0087AAFB /* User.m in Sources */,
 				532EC705195D51DF0046688C /* ContainerViewController.m in Sources */,
+				532EC71C195F46610046688C /* MenuCell.m in Sources */,
+				532EC711195F41350046688C /* MenuViewController.m in Sources */,
 				536674C71954266A0087AAFB /* LoginViewController.m in Sources */,
 				532EC709195D53BE0046688C /* ProfileViewController.m in Sources */,
 				532EC6FB19580C330046688C /* TweetCell.m in Sources */,
@@ -416,6 +454,8 @@
 				536674A0195421E80087AAFB /* AppDelegate.m in Sources */,
 				536674D819566F1C0087AAFB /* Tweet.m in Sources */,
 				536674C0195424BD0087AAFB /* TwitterClient.m in Sources */,
+				532EC720195FF8A90046688C /* MainViewController.m in Sources */,
+				532EC7281960145A0046688C /* PersonCell.m in Sources */,
 				5366749C195421E80087AAFB /* main.m in Sources */,
 				536674EA1956B28A0087AAFB /* ComposeViewController.m in Sources */,
 				536674D0195667470087AAFB /* HomeViewController.m in Sources */,

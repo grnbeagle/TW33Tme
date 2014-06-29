@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol HamburgerMenuDelegate <NSObject>
+
+- (void)toggleMenu;
+
+@end
+
 @interface ContainerViewController : UIViewController
 
+@property (nonatomic, assign) id<HamburgerMenuDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarView;
+
+- (IBAction)onPan:(UIPanGestureRecognizer *)gestureRecognizer;
+
 
 @end

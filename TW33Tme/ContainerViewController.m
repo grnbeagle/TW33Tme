@@ -15,10 +15,14 @@
 {
     HomeViewController *homeViewController;
     ProfileViewController *profileViewController;
+
+    CGPoint panStartCoordinate;
+    CGPoint contentCoordinate;
 }
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (strong, nonatomic) NSArray *viewControllers;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBarView;
+
+@property (strong, nonatomic) NSArray *viewControllers;
 @end
 
 @implementation ContainerViewController
@@ -31,6 +35,11 @@
         profileViewController = [[ProfileViewController alloc] init];
 
         self.viewControllers = @[homeViewController, profileViewController];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onSelectMenuItem:)
+                                                     name:@"menuSelected"
+                                                   object:nil];
     }
     return self;
 }
@@ -39,21 +48,7 @@
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [Utils getTwitterBlue];
-//    UIView *homeView = homeViewController.view;
-//    UIView *profileView = profileViewController.view;
-
-    [self displayContentController:homeViewController];
-    //[self.containerView addSubview:profileView];
-    //[self.containerView addSubview:homeView];
-
-    UITabBarItem *homeButton = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"FavIcon"] tag:0];
-    UITabBarItem *tabTwo = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:1];
-
-    [self.tabBarView setItems:@[homeButton, tabTwo] animated:YES];
-
-    self.navigationBarView.translucent = NO;
-    self.navigationBarView.barTintColor = [Utils getTwitterBlue];
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,4 +63,40 @@
     [content didMoveToParentViewController:self];
 }
 
+- (void) onSelectMenuItem:(NSNotification *) notification {
+    if ([[notification name] isEqualToString:@"menuSelected"]) {
+        NSLog(@"menu selected");
+    }
+}
+
+- (void)setupUI {
+    // Cosmetics
+    self.view.backgroundColor = [Utils getTwitterBlue];
+
+    // Events and subviews
+    [self displayContentController:homeViewController];
+
+    // Navigations
+    UITabBarItem *homeButton = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"FavIcon"] tag:0];
+    UITabBarItem *tabTwo = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:1];
+
+    [self.tabBarView setItems:@[homeButton, tabTwo] animated:YES];
+
+    self.navigationBarView.translucent = NO;
+    self.navigationBarView.barTintColor = [Utils getTwitterBlue];
+
+    UIImage *hamburgerIcon = [Utils imageWithImage:[UIImage imageNamed:@"HamburgerIcon"] scaledToSize:CGSizeMake(15, 15)];
+    UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc]
+                                        initWithImage:hamburgerIcon
+                                        landscapeImagePhone:nil
+                                        style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(toggleMenu:)];
+    UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@"Hi"];
+    navItem.leftBarButtonItem = hamburgerButton;
+    [self.navigationBarView pushNavigationItem:navItem animated:YES];
+}
+- (void)toggleMenu:(id)sender {
+    [_delegate toggleMenu];
+}
 @end
