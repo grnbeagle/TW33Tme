@@ -28,7 +28,7 @@
                             },
                           @{@"icon": @"TimelineIcon",
                             @"text": @"Timeline",
-                            @"controller": @""}
+                            @"controller": @"HomeViewController"}
                           ];
     }
     return self;

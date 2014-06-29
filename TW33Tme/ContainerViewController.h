@@ -19,7 +19,4 @@
 @property (nonatomic, assign) id<HamburgerMenuDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarView;
 
-- (IBAction)onPan:(UIPanGestureRecognizer *)gestureRecognizer;
-
-
 @end

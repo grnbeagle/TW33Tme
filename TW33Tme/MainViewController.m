@@ -33,6 +33,11 @@
         [self.view addSubview:self.containerViewController.view];
         [self addChildViewController:_containerViewController];
         [_containerViewController didMoveToParentViewController:self];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onSelectMenuItem:)
+                                                     name:@"menuSelected"
+                                                   object:nil];
     }
     return self;
 }
@@ -141,6 +146,14 @@
             break;
         default:
             break;
+    }
+}
+
+- (void) onSelectMenuItem:(NSNotification *) notification {
+    if ([[notification name] isEqualToString:@"menuSelected"]) {
+        [self animateContainerSlideBy:0 withCallback:^{
+            self.showingMenu = NO;
+        }];
     }
 }
 

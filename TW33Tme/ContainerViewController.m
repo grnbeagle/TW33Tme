@@ -65,7 +65,12 @@
 
 - (void) onSelectMenuItem:(NSNotification *) notification {
     if ([[notification name] isEqualToString:@"menuSelected"]) {
-        NSLog(@"menu selected");
+        NSString *controllerName = ((NSDictionary *)notification.object)[@"controller"];
+        for(UIView *aView in self.view.subviews){
+            if([aView isKindOfClass:[NSClassFromString(controllerName) class]]){
+                [self.view bringSubviewToFront:aView];
+            }
+        }
     }
 }
 
