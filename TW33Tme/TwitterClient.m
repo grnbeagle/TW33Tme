@@ -22,6 +22,10 @@
 
     // TODO: move keys
     dispatch_once(&onceToken, ^{
+//        instance = [[TwitterClient alloc]
+//                    initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]
+//                    consumerKey:@"oktJjqH6ZF1cFT6AGSB532une"
+//                    consumerSecret:@"pozqvOv9OXe8Gb8jqvKtzzBAgglGIkTtsbHGWEko47xQktIl2n"];
         instance = [[TwitterClient alloc]
                     initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]
                     consumerKey:@"oktJjqH6ZF1cFT6AGSB532une"
@@ -73,6 +77,13 @@
                                            success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                            failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
     return [self GET:@"1.1/statuses/home_timeline.json" parameters:params success:success failure:failure];
+}
+
+- (AFHTTPRequestOperation *)timelineWithScreenName:(NSString *)screenName
+                                       success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                       failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    NSDictionary *parameters = @{@"screen_name": screenName};
+    return [self GET:@"1.1/statuses/home_timeline.json" parameters:parameters success:success failure:failure];
 }
 
 - (AFHTTPRequestOperation *)verifyCredentialWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success

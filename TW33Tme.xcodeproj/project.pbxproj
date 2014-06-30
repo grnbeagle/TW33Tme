@@ -21,6 +21,11 @@
 		532EC721195FF8A90046688C /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC71F195FF8A90046688C /* MainViewController.xib */; };
 		532EC726196013DD0046688C /* PersonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC724196013DD0046688C /* PersonCell.xib */; };
 		532EC7281960145A0046688C /* PersonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC7271960145A0046688C /* PersonCell.m */; };
+		532EC72D1960E25A0046688C /* ProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC72B1960E25A0046688C /* ProfileCell.xib */; };
+		532EC72F1960F69D0046688C /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC72E1960F69D0046688C /* ProfileCell.m */; };
+		532EC7331960FB2B0046688C /* StatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC7311960FB2B0046688C /* StatsCell.m */; };
+		532EC7341960FB2B0046688C /* StatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 532EC7321960FB2B0046688C /* StatsCell.xib */; };
+		532EC737196113930046688C /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 532EC736196113930046688C /* UIImage+ImageEffects.m */; };
 		53667490195421E80087AAFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5366748F195421E80087AAFB /* Foundation.framework */; };
 		53667492195421E80087AAFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53667491195421E80087AAFB /* CoreGraphics.framework */; };
 		53667494195421E80087AAFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53667493195421E80087AAFB /* UIKit.framework */; };
@@ -83,6 +88,14 @@
 		532EC722196013DD0046688C /* PersonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonCell.h; sourceTree = "<group>"; };
 		532EC724196013DD0046688C /* PersonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonCell.xib; sourceTree = "<group>"; };
 		532EC7271960145A0046688C /* PersonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonCell.m; sourceTree = "<group>"; };
+		532EC7291960E25A0046688C /* ProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
+		532EC72B1960E25A0046688C /* ProfileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileCell.xib; sourceTree = "<group>"; };
+		532EC72E1960F69D0046688C /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
+		532EC7301960FB2B0046688C /* StatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsCell.h; sourceTree = "<group>"; };
+		532EC7311960FB2B0046688C /* StatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsCell.m; sourceTree = "<group>"; };
+		532EC7321960FB2B0046688C /* StatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatsCell.xib; sourceTree = "<group>"; };
+		532EC735196113930046688C /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		532EC736196113930046688C /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		5366748C195421E80087AAFB /* TW33Tme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TW33Tme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5366748F195421E80087AAFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		53667491195421E80087AAFB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -276,6 +289,8 @@
 		536674D5195668BD0087AAFB /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				532EC735196113930046688C /* UIImage+ImageEffects.h */,
+				532EC736196113930046688C /* UIImage+ImageEffects.m */,
 				536674D2195668B60087AAFB /* NSURL+dictionaryFromQueryString.h */,
 				536674D3195668B60087AAFB /* NSURL+dictionaryFromQueryString.m */,
 				532EC6FC19581D880046688C /* UIView+SuperView.h */,
@@ -296,6 +311,12 @@
 				532EC722196013DD0046688C /* PersonCell.h */,
 				532EC7271960145A0046688C /* PersonCell.m */,
 				532EC724196013DD0046688C /* PersonCell.xib */,
+				532EC7291960E25A0046688C /* ProfileCell.h */,
+				532EC72E1960F69D0046688C /* ProfileCell.m */,
+				532EC72B1960E25A0046688C /* ProfileCell.xib */,
+				532EC7301960FB2B0046688C /* StatsCell.h */,
+				532EC7311960FB2B0046688C /* StatsCell.m */,
+				532EC7321960FB2B0046688C /* StatsCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -380,6 +401,7 @@
 				532EC70A195D53BE0046688C /* ProfileViewController.xib in Resources */,
 				5366749A195421E80087AAFB /* InfoPlist.strings in Resources */,
 				532EC726196013DD0046688C /* PersonCell.xib in Resources */,
+				532EC72D1960E25A0046688C /* ProfileCell.xib in Resources */,
 				536674EF19579EDA0087AAFB /* TweetViewController.xib in Resources */,
 				536674E81956ADAA0087AAFB /* ComposeViewController.xib in Resources */,
 				536674DE195672790087AAFB /* TweetCell.xib in Resources */,
@@ -387,6 +409,7 @@
 				536674A2195421E80087AAFB /* Images.xcassets in Resources */,
 				532EC721195FF8A90046688C /* MainViewController.xib in Resources */,
 				536674C5195426070087AAFB /* LoginViewController.xib in Resources */,
+				532EC7341960FB2B0046688C /* StatsCell.xib in Resources */,
 				532EC70F195F40DE0046688C /* MenuViewController.xib in Resources */,
 				532EC703195D50270046688C /* ContainerViewController.xib in Resources */,
 				536674D1195667470087AAFB /* HomeViewController.xib in Resources */,
@@ -445,14 +468,17 @@
 				536674CA19556B2A0087AAFB /* User.m in Sources */,
 				532EC705195D51DF0046688C /* ContainerViewController.m in Sources */,
 				532EC71C195F46610046688C /* MenuCell.m in Sources */,
+				532EC737196113930046688C /* UIImage+ImageEffects.m in Sources */,
 				532EC711195F41350046688C /* MenuViewController.m in Sources */,
 				536674C71954266A0087AAFB /* LoginViewController.m in Sources */,
 				532EC709195D53BE0046688C /* ProfileViewController.m in Sources */,
 				532EC6FB19580C330046688C /* TweetCell.m in Sources */,
 				536674E319567AC90087AAFB /* Utils.m in Sources */,
+				532EC72F1960F69D0046688C /* ProfileCell.m in Sources */,
 				532EC6FE19581D880046688C /* UIView+SuperView.m in Sources */,
 				536674A0195421E80087AAFB /* AppDelegate.m in Sources */,
 				536674D819566F1C0087AAFB /* Tweet.m in Sources */,
+				532EC7331960FB2B0046688C /* StatsCell.m in Sources */,
 				536674C0195424BD0087AAFB /* TwitterClient.m in Sources */,
 				532EC720195FF8A90046688C /* MainViewController.m in Sources */,
 				532EC7281960145A0046688C /* PersonCell.m in Sources */,

@@ -21,6 +21,10 @@
                                            success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                             failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 
+- (AFHTTPRequestOperation *)timelineWithScreenName:(NSString *)screenName
+                                           success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                           failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+
 - (AFHTTPRequestOperation *)verifyCredentialWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                              failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 

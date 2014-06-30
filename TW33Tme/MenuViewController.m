@@ -24,11 +24,12 @@
         self.menuList = @[
                           @{@"icon": @"ProfileIcon",
                             @"text": @"My Profile",
-                            @"controller": @""
+                            @"controller": @"ProfileViewController"
                             },
                           @{@"icon": @"TimelineIcon",
                             @"text": @"Timeline",
-                            @"controller": @"HomeViewController"}
+                            @"controller": @"HomeViewController"
+                            }
                           ];
     }
     return self;
@@ -64,17 +65,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.menuList.count;
+    return self.menuItems.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MenuCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell" forIndexPath:indexPath];
-    [cell setMenuItem:self.menuList[indexPath.row]];
+    [cell setMenuItem:self.menuItems[indexPath.row]];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuSelected" object:self.menuList[indexPath.row]  ];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuSelected" object:self.menuItems[indexPath.row]  ];
 }
 
 

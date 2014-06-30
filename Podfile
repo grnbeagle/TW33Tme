@@ -5,6 +5,7 @@ target "TW33Tme" do
   pod 'BDBOAuth1Manager'
   pod 'Mantle'
   pod 'DateTools'
+  pod 'GPUImage', '~> 0.1.4'
 end
 
 target "TW33TmeTests" do

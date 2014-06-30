@@ -10,10 +10,10 @@
 
 @interface MenuCell : UITableViewCell
 
-@property (strong, nonatomic) NSDictionary *menuItem;
+@property (strong, nonatomic) UIViewController *menuItem;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
-- (void)setMenuItem:(NSDictionary *)menuItem;
+- (void)setMenuItem:(UIViewController *)menuItem;
 
 @end

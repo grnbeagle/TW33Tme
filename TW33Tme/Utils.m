@@ -12,6 +12,10 @@
 @implementation Utils
 
 + (void)loadImageUrl:(NSString *)url inImageView:(UIImageView *)imageView withAnimation:(BOOL)enableAnimation {
+    [Utils loadImageUrl:url inImageView:imageView withAnimation:enableAnimation withSuccess:nil];
+}
+
++ (void)loadImageUrl:(NSString *)url inImageView:(UIImageView *)imageView withAnimation:(BOOL)enableAnimation withSuccess:(void (^) ())success {
     NSURL *urlObject = [NSURL URLWithString:url];
     __weak UIImageView *iv = imageView;
 
@@ -29,6 +33,9 @@
                               }];
          } else {
              iv.image = image;
+         }
+         if (success) {
+             success();
          }
      }
      failure:nil];

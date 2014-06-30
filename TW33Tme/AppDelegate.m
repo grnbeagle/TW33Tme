@@ -23,13 +23,14 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [[UINavigationBar appearance] setBarTintColor:[Utils getTwitterBlue]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    MainViewController *mainViewController = [[MainViewController alloc] init];
-    self.window.rootViewController = mainViewController;
+//    MainViewController *mainViewController = [[MainViewController alloc] init];
+//    self.window.rootViewController = mainViewController;
 
-//    LoginViewController *loginViewController = [[LoginViewController alloc] init];
-//    self.window.rootViewController = loginViewController;
+    LoginViewController *loginViewController = [[LoginViewController alloc] init];
+    self.window.rootViewController = loginViewController;
 
 //    MenuViewController *menuViewController = [[MenuViewController alloc] init];
 //    self.window.rootViewController = menuViewController;
@@ -75,8 +76,9 @@
             NSDictionary *parameters = [url dictionaryFromQueryString];
             if (parameters[@"oauth_token"] && parameters[@"oauth_verifier"]) {
                 [[TwitterClient instance] finishLoginWith:url.query withCompletion:^{
-                    ContainerViewController *containerViewController = [[ContainerViewController alloc] init];
-                    [self.window setRootViewController:containerViewController];
+
+                    MainViewController *mainViewController = [[MainViewController alloc] init];
+                    [self.window setRootViewController:mainViewController];
                 }];
             }
         }

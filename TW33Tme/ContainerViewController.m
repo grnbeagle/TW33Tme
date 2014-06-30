@@ -7,22 +7,15 @@
 //
 
 #import "ContainerViewController.h"
-#import "HomeViewController.h"
-#import "ProfileViewController.h"
 #import "Utils.h"
 
 @interface ContainerViewController ()
-{
-    HomeViewController *homeViewController;
-    ProfileViewController *profileViewController;
 
-    CGPoint panStartCoordinate;
-    CGPoint contentCoordinate;
-}
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBarView;
 
-@property (strong, nonatomic) NSArray *viewControllers;
+@property (strong, nonatomic) UIViewController *currentViewController;
+
 @end
 
 @implementation ContainerViewController
@@ -31,11 +24,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        homeViewController = [[HomeViewController alloc] init];
-        profileViewController = [[ProfileViewController alloc] init];
-
-        self.viewControllers = @[homeViewController, profileViewController];
-
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onSelectMenuItem:)
                                                      name:@"menuSelected"
@@ -58,19 +46,22 @@
 }
 
 - (void) displayContentController: (UIViewController*) content {
+
     [self addChildViewController:content];
     [self.containerView addSubview:content.view];
     [content didMoveToParentViewController:self];
+
+    if (self.currentViewController != nil) {
+        [self.currentViewController willMoveToParentViewController:nil];
+        [self.currentViewController.view removeFromSuperview];
+        [self.currentViewController removeFromParentViewController];
+    }
+    self.currentViewController = content;
 }
 
 - (void) onSelectMenuItem:(NSNotification *) notification {
     if ([[notification name] isEqualToString:@"menuSelected"]) {
-        NSString *controllerName = ((NSDictionary *)notification.object)[@"controller"];
-        for(UIView *aView in self.view.subviews){
-            if([aView isKindOfClass:[NSClassFromString(controllerName) class]]){
-                [self.view bringSubviewToFront:aView];
-            }
-        }
+        [self displayContentController:(UIViewController *)notification.object];
     }
 }
 
@@ -79,7 +70,7 @@
     self.view.backgroundColor = [Utils getTwitterBlue];
 
     // Events and subviews
-    [self displayContentController:homeViewController];
+    [self displayContentController:self.viewControllers[0]];
 
     // Navigations
     UITabBarItem *homeButton = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"FavIcon"] tag:0];
@@ -87,8 +78,9 @@
 
     [self.tabBarView setItems:@[homeButton, tabTwo] animated:YES];
 
-    self.navigationBarView.translucent = NO;
-    self.navigationBarView.barTintColor = [Utils getTwitterBlue];
+//    self.navigationBarView.translucent = NO;
+//    self.navigationBarView.barTintColor = [Utils getTwitterBlue];
+//    self.navigationBarView.tintColor = [UIColor whiteColor];
 
     UIImage *hamburgerIcon = [Utils imageWithImage:[UIImage imageNamed:@"HamburgerIcon"] scaledToSize:CGSizeMake(15, 15)];
     UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc]
@@ -97,9 +89,9 @@
                                         style:UIBarButtonItemStylePlain
                                         target:self
                                         action:@selector(toggleMenu:)];
-    UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@"Hi"];
+    UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@"Home"];
     navItem.leftBarButtonItem = hamburgerButton;
-    [self.navigationBarView pushNavigationItem:navItem animated:YES];
+//    [self.navigationBarView pushNavigationItem:navItem animated:YES];
 }
 - (void)toggleMenu:(id)sender {
     [_delegate toggleMenu];

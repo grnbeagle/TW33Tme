@@ -8,16 +8,22 @@
 
 #import "MainViewController.h"
 #import "MenuViewController.h"
+#import "HomeViewController.h"
+#import "ProfileViewController.h"
 
 @interface MainViewController ()
 
 @property (nonatomic, strong) ContainerViewController *containerViewController;
 @property (nonatomic, strong) MenuViewController *menuViewController;
 @property (nonatomic, assign) BOOL showingMenu;
+@property (nonatomic, strong) NSArray *viewControllers;
 @end
 
 @implementation MainViewController
 {
+    UINavigationController *timelineViewController;
+    ProfileViewController *profileViewController;
+
     CGPoint panStartCoordinate;
     NSString *direction;
 }
@@ -26,9 +32,15 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        HomeViewController *homeViewController = [[HomeViewController alloc] init];
+        timelineViewController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+        profileViewController = [[ProfileViewController alloc] init];
+
+        self.viewControllers = @[timelineViewController, profileViewController];
 
         self.containerViewController = [[ContainerViewController alloc] init];
         self.containerViewController.delegate = self;
+        self.containerViewController.viewControllers = self.viewControllers;
 
         [self.view addSubview:self.containerViewController.view];
         [self addChildViewController:_containerViewController];
@@ -47,6 +59,7 @@
     [super viewDidLoad];
 
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(onPan:)];
+    panGesture.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:panGesture];
 }
 
@@ -60,7 +73,8 @@
 - (UIView *)getMenu {
     if (_menuViewController == nil) {
         self.menuViewController = [[MenuViewController alloc] init];
-        //self.menuViewController.delegate = _containerViewController;
+        self.menuViewController.menuItems = self.viewControllers;
+
         [self.view addSubview:self.menuViewController.view];
         [self addChildViewController:_menuViewController];
         [_menuViewController didMoveToParentViewController:self];
@@ -87,7 +101,7 @@
 }
 
 - (void)animateContainerSlideBy:(CGFloat)positionX withCallback:(void (^) ())callback {
-    [UIView animateWithDuration:0.3
+    [UIView animateWithDuration:0.5
                           delay:0
                         options:(UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseIn)
                      animations:^{

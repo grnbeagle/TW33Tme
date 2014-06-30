@@ -12,6 +12,8 @@
 
 + (void)loadImageUrl:(NSString *)url inImageView:(UIImageView *)imageView withAnimation:(BOOL)enableAnimation;
 
++ (void)loadImageUrl:(NSString *)url inImageView:(UIImageView *)imageView withAnimation:(BOOL)enableAnimation withSuccess:(void (^) ())success;
+
 + (UIColor *)getColorFrom:(CGFloat [3])rgb;
 
 + (UIColor *)getTwitterBlue;
@@ -19,4 +21,5 @@
 + (UIColor *)getTwitterGray;
 
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
+
 @end

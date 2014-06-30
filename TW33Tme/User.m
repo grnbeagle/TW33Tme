@@ -7,8 +7,9 @@
 //
 
 #import "User.h"
-#import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
 #import "TwitterClient.h"
+#import "NSValueTransformer+MTLPredefinedTransformerAdditions.h"
+#import "MTLValueTransformer.h"
 
 @implementation User
 
@@ -26,7 +27,12 @@ static NSString *storeKey = @"current_user";
     return @{
              @"name": @"name",
              @"thumbImageUrl": @"profile_image_url",
-             @"screenName": @"screen_name"
+             @"bannerImageUrl": @"profile_banner_url",
+             @"screenName": @"screen_name",
+             @"following": @"friends_count",
+             @"followersCount": @"followers_count",
+             @"friendsCount": @"friends_count",
+             @"statusesCount": @"statuses_count"
              };
 }
 
@@ -47,22 +53,12 @@ static NSString *storeKey = @"current_user";
     [defaults synchronize];
 }
 
-//+ (void)populateCurrentUser {
-//    TwitterClient *client = [TwitterClient instance];
-//    [client verifyCredentialWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"[User populateCurrentUser] success");
-//        User *user = [MTLJSONAdapter modelOfClass:[User class] fromJSONDictionary:responseObject error:nil];
-//        [User setCurrentUser:user];
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"[User populateCurrentUser] failure: %@", error.description);
-//    }];
-//}
-
 + (void)verifyCurrentUserWithSuccess:(void (^) ())success
                              failure:(void (^) (NSError *error))failure {
     TwitterClient *client = [TwitterClient instance];
     [client verifyCredentialWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"[User verifyCurrentUser] success");
+        NSLog(@"%@", responseObject);
         User *user = [MTLJSONAdapter modelOfClass:[User class] fromJSONDictionary:responseObject error:nil];
         [User setCurrentUser:user];
         if (success) {

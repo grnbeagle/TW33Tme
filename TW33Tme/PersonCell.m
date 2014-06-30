@@ -39,4 +39,5 @@
     self.nameLabel.text = user.name;
     self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", user.screenName];
 }
+
 @end

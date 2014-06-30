@@ -25,12 +25,14 @@
     // Configure the view for the selected state
 }
 
-- (void)setMenuItem:(NSDictionary *)menuItem {
-    if (menuItem[@"icon"] != nil) {
-        [self.imageView setImage:[UIImage imageNamed:menuItem[@"icon"]]];
-        self.imageView.alpha = 0.5;
-    }
-    [self.textLabel setText:menuItem[@"text"]];
+- (void)setMenuItem:(UIViewController *)menuItem {
+//    if (menuItem[@"icon"] != nil) {
+//        [self.imageView setImage:[UIImage imageNamed:menuItem[@"icon"]]];
+//        self.imageView.alpha = 0.5;
+//    }
+//    [self.textLabel setText:menuItem[@"text"]];
+
+    [self.textLabel setText:menuItem.title];
 }
 
 @end

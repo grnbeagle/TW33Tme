@@ -15,13 +15,16 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *thumbImageUrl;
 @property (nonatomic, strong) NSString *profileImageUrl;
+@property (nonatomic, strong) NSString *bannerImageUrl;
 @property (nonatomic, strong) NSString *screenName;
+@property (assign) int following;
+@property (assign) int followersCount;
+@property (assign) int friendsCount;
+@property (assign) int statusesCount;
 
 + (User *)currentUser;
 
 + (void)setCurrentUser:(User *)user;
-
-//+ (void)populateCurrentUser;
 
 + (void)verifyCurrentUserWithSuccess:(void (^) ())success
                              failure:(void (^) (NSError *error))failure;

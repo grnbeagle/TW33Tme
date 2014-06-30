@@ -38,7 +38,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.view.tag = 3;
     }
     return self;
 }
@@ -49,6 +49,9 @@
 
     [self setupUI];
     self.title = @"Tweet";
+}
+
+-(void)viewDidAppear:(BOOL)animated {
 
     self.textLabel.text = self.tweet.text;
     self.nameLabel.text = [self.tweet author].name;
@@ -90,7 +93,10 @@
     [self.favoriteButton setTitle:@"" forState:UIControlStateNormal];
     [self.favoriteButton setBackgroundImage:favIcon forState:UIControlStateNormal];
     [self.favoriteButton addTarget:self action:@selector(favoriteTweet:) forControlEvents:UIControlEventTouchDown];
+
+    //[self fetchData];
 }
+
 
 - (void)didReceiveMemoryWarning
 {

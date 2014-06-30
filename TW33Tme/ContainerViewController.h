@@ -19,4 +19,6 @@
 @property (nonatomic, assign) id<HamburgerMenuDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarView;
 
+@property (strong, nonatomic) NSArray *viewControllers;
+
 @end

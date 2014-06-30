@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol MenuViewControllerDelegate <NSObject>
-
-@end
+//@protocol MenuViewControllerDelegate <NSObject>
+//
+//@end
 
 @interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, assign) id<MenuViewControllerDelegate> delegate;
+//@property (nonatomic, assign) id<MenuViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSArray *menuItems;
 
 @end

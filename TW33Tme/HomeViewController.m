@@ -34,7 +34,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Home";
+        self.title = @"Timeline";
         self.tweets = [[NSMutableArray alloc] init];
         self.client = [TwitterClient instance];
     }
@@ -44,7 +44,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupUI];
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -62,6 +61,8 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated {
+    [self setupUI];
+
     [self fetchData];
 }
 
@@ -93,7 +94,6 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
     [cell.replyButton addTarget:self action:@selector(replyButtonClicked:) forControlEvents:UIControlEventTouchDown];
     [cell.retweetButton addTarget:self action:@selector(retweetButtonClicked:) forControlEvents:UIControlEventTouchDown];
-
     [cell.favoriteButton addTarget:self action:@selector(favoriteButtonClicked:) forControlEvents:UIControlEventTouchDown];
 
     [self configureCell:cell atIndexPath:indexPath];
@@ -157,19 +157,24 @@
 }
 
 - (void)setupUI {
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
     UIBarButtonItem *composeButton = [[UIBarButtonItem alloc]
                                      initWithTitle:@"Compose"
                                      style:UIBarButtonItemStylePlain
                                      target:self
                                      action:@selector(showCompose)];
 
-    UINavigationBar *navBar = ((ContainerViewController *)self.parentViewController).navigationBarView;
-    UINavigationItem* item = [[UINavigationItem alloc] initWithTitle:@"Home"];
-    item.rightBarButtonItem = composeButton;
-    [navBar pushNavigationItem:item animated:YES];
+//    UINavigationBar *navBar = ((ContainerViewController *)self.parentViewController).navigationBarView;
+//    UINavigationItem* item = [[UINavigationItem alloc] initWithTitle:@"Home"];
+//    item.rightBarButtonItem = composeButton;
+//    [navBar pushNavigationItem:item animated:YES];
+//
+//    navBar.tintColor = [UIColor whiteColor];
+//    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 
-    navBar.tintColor = [UIColor whiteColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    self.navigationItem.rightBarButtonItem = composeButton;
 
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
 }
