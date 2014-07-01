@@ -25,6 +25,10 @@
                                            success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                            failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 
+- (AFHTTPRequestOperation *)mentionsWithParams:(NSDictionary *)params
+                                           success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                           failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
+
 - (AFHTTPRequestOperation *)verifyCredentialWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                              failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure;
 

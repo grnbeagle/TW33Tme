@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    timelineView,
+    mentionsView
+} ViewMode;
+
 @interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property ViewMode mode;
+
+-(id)initWithMode:(ViewMode)aMode;
 
 @end

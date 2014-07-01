@@ -38,7 +38,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.view.tag = 3;
+        self.title = @"Tweet";
     }
     return self;
 }
@@ -48,7 +48,6 @@
     [super viewDidLoad];
 
     [self setupUI];
-    self.title = @"Tweet";
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -94,7 +93,6 @@
     [self.favoriteButton setBackgroundImage:favIcon forState:UIControlStateNormal];
     [self.favoriteButton addTarget:self action:@selector(favoriteTweet:) forControlEvents:UIControlEventTouchDown];
 
-    //[self fetchData];
 }
 
 

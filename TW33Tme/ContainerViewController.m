@@ -13,8 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBarView;
-
-@property (strong, nonatomic) UIViewController *currentViewController;
+@property (strong, nonatomic) UINavigationController *navigationController;
 
 @end
 
@@ -42,26 +41,25 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+-(UINavigationController*) navigationController {
+    if(_navigationController == nil) {
+        _navigationController = [[UINavigationController alloc] init];
+    }
+    return _navigationController;
 }
 
 - (void) displayContentController: (UIViewController*) content {
-
     [self addChildViewController:content];
     [self.containerView addSubview:content.view];
     [content didMoveToParentViewController:self];
-
-    if (self.currentViewController != nil) {
-        [self.currentViewController willMoveToParentViewController:nil];
-        [self.currentViewController.view removeFromSuperview];
-        [self.currentViewController removeFromParentViewController];
-    }
-    self.currentViewController = content;
 }
 
 - (void) onSelectMenuItem:(NSNotification *) notification {
     if ([[notification name] isEqualToString:@"menuSelected"]) {
-        [self displayContentController:(UIViewController *)notification.object];
+        [self.navigationController setViewControllers:@[(UIViewController *)notification.object]];
+        [self displayContentController:self.navigationController];
     }
 }
 
@@ -70,7 +68,8 @@
     self.view.backgroundColor = [Utils getTwitterBlue];
 
     // Events and subviews
-    [self displayContentController:self.viewControllers[0]];
+    [self.navigationController setViewControllers:@[self.viewControllers[0]]];
+    [self displayContentController:self.navigationController];
 
     // Navigations
     UITabBarItem *homeButton = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"FavIcon"] tag:0];
@@ -91,7 +90,6 @@
                                         action:@selector(toggleMenu:)];
     UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@"Home"];
     navItem.leftBarButtonItem = hamburgerButton;
-//    [self.navigationBarView pushNavigationItem:navItem animated:YES];
 }
 - (void)toggleMenu:(id)sender {
     [_delegate toggleMenu];

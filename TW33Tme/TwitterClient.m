@@ -86,6 +86,12 @@
     return [self GET:@"1.1/statuses/home_timeline.json" parameters:parameters success:success failure:failure];
 }
 
+- (AFHTTPRequestOperation *)mentionsWithParams:(NSDictionary *)params
+                                       success:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
+                                       failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
+    return [self GET:@"1.1/statuses/mentions_timeline.json" parameters:params success:success failure:failure];
+}
+
 - (AFHTTPRequestOperation *)verifyCredentialWithSuccess:(void (^) (AFHTTPRequestOperation *operation, id responseObject))success
                                                 failure:(void (^) (AFHTTPRequestOperation *operation, NSError *error))failure {
     return [self GET:@"1.1/account/verify_credentials.json" parameters:nil success:success failure:failure];

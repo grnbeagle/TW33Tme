@@ -21,13 +21,6 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
 - (void)setUser:(User *)user {
     self.tweetsCountLabel.text = [NSString stringWithFormat:@"%d", user.statusesCount];
     self.followersCountLabel.text = [NSString stringWithFormat:@"%d", user.followersCount];

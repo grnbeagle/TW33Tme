@@ -7,12 +7,12 @@
 //
 
 #import "MenuViewController.h"
+#import "ProfileViewController.h"
 #import "MenuCell.h"
 #import "PersonCell.h"
 
 @interface MenuViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *menuList;
 @end
 
 @implementation MenuViewController
@@ -21,16 +21,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.menuList = @[
-                          @{@"icon": @"ProfileIcon",
-                            @"text": @"My Profile",
-                            @"controller": @"ProfileViewController"
-                            },
-                          @{@"icon": @"TimelineIcon",
-                            @"text": @"Timeline",
-                            @"controller": @"HomeViewController"
-                            }
-                          ];
+
     }
     return self;
 }
@@ -61,6 +52,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     PersonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PersonCell"];
     cell.user = [User currentUser];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onUserImageTap:)];
+    [cell.imageView addGestureRecognizer:tapGestureRecognizer];
     return cell.contentView;
 }
 
@@ -78,5 +71,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuSelected" object:self.menuItems[indexPath.row]  ];
 }
 
-
+- (void)onUserImageTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"menuSelected" object:profileViewController];
+}
 @end

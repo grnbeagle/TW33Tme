@@ -21,8 +21,9 @@
 
 @implementation MainViewController
 {
-    UINavigationController *timelineViewController;
+    UINavigationController *timelineNavController;
     ProfileViewController *profileViewController;
+    UINavigationController *mentionsNavController;
 
     CGPoint panStartCoordinate;
     NSString *direction;
@@ -32,23 +33,39 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        HomeViewController *homeViewController = [[HomeViewController alloc] init];
-        timelineViewController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+        HomeViewController *homeViewController = [[HomeViewController alloc] initWithMode:timelineView];
+        //timelineNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
+
+        HomeViewController *mentionsViewController = [[HomeViewController alloc] initWithMode:mentionsView];
+        //mentionsNavController = [[UINavigationController alloc] initWithRootViewController:mentionsViewController];
+
         profileViewController = [[ProfileViewController alloc] init];
 
-        self.viewControllers = @[timelineViewController, profileViewController];
+        self.viewControllers = @[homeViewController, profileViewController, mentionsViewController];
+
 
         self.containerViewController = [[ContainerViewController alloc] init];
         self.containerViewController.delegate = self;
         self.containerViewController.viewControllers = self.viewControllers;
 
+//        UINavigationController *mainNavController = [[UINavigationController alloc] initWithRootViewController:self.containerViewController];
+
         [self.view addSubview:self.containerViewController.view];
         [self addChildViewController:_containerViewController];
         [_containerViewController didMoveToParentViewController:self];
 
+//        [self.view addSubview:mainNavController.view];
+//        [self addChildViewController:mainNavController];
+//        [mainNavController didMoveToParentViewController:self];
+
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onSelectMenuItem:)
                                                      name:@"menuSelected"
+                                                   object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onHamburgerIconClicked:)
+                                                     name:@"hamburgerClicked"
                                                    object:nil];
     }
     return self;
@@ -168,6 +185,12 @@
         [self animateContainerSlideBy:0 withCallback:^{
             self.showingMenu = NO;
         }];
+    }
+}
+
+- (void) onHamburgerIconClicked:(NSNotification *) notification {
+    if ([[notification name] isEqualToString:@"hamburgerClicked"]) {
+        [self toggleMenu];
     }
 }
 

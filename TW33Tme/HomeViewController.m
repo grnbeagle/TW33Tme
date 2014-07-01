@@ -10,10 +10,12 @@
 #import "HomeViewController.h"
 #import "ComposeViewController.h"
 #import "TweetViewController.h"
+#import "ProfileViewController.h"
 #import "TwitterClient.h"
 #import "TweetCell.h"
-#import "UIView+SuperView.h"
 #import "Tweet.h"
+#import "Utils.h"
+#import "UIView+SuperView.h"
 
 @interface HomeViewController ()
 
@@ -30,11 +32,11 @@
 
 @implementation HomeViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)initWithMode:(ViewMode)aMode {
+    self = [super init];
+    self.mode = aMode;
     if (self) {
-        self.title = @"Timeline";
+        self.title = (self.mode == timelineView) ? @"Timeline" : @"Mentions";
         self.tweets = [[NSMutableArray alloc] init];
         self.client = [TwitterClient instance];
     }
@@ -96,6 +98,10 @@
     [cell.retweetButton addTarget:self action:@selector(retweetButtonClicked:) forControlEvents:UIControlEventTouchDown];
     [cell.favoriteButton addTarget:self action:@selector(favoriteButtonClicked:) forControlEvents:UIControlEventTouchDown];
 
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onUserImageTap:)];
+    [cell.imageView addGestureRecognizer:tapGestureRecognizer];
+    cell.imageView.tag = indexPath.row;
+
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
@@ -114,37 +120,50 @@
     if ([self.sinceId doubleValue] > 0) {
         params = @{ @"since_id": self.sinceId };
     }
-    [client homeTimelineWithParams:params
-                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                               NSError *error;
-                               if (params) {
-                                   NSArray *newTweets = [MTLJSONAdapter
-                                                         modelsOfClass:[Tweet class]
-                                                         fromJSONArray:responseObject
-                                                         error:&error];
-                                   for (Tweet *tweet in newTweets) {
-                                       [self.tweets insertObject:tweet atIndex:0];
-                                   }
-                               } else {
-                                   [self.tweets addObjectsFromArray:[MTLJSONAdapter
-                                                                     modelsOfClass:[Tweet class]
-                                                                     fromJSONArray:responseObject
-                                                                     error:&error]];
+    if (self.mode == mentionsView) {
+        [client mentionsWithParams:params
+                               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                   [self processResponse:responseObject withParams:params];
                                }
-                               if (error) {
-                                    NSLog(@"[HomeViewController fetchData] transform error: %@", error.description);
+                               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                   NSLog(@"[HomeViewController fetchData] error: %@", error.description);
+                               }];
+    } else {
+        [client homeTimelineWithParams:params
+                               success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                   [self processResponse:responseObject withParams:params];
                                }
-                               NSLog(@"[HomeViewController fetchData] success row count: %d", self.tweets.count);
-                               if (self.tweets.count > 0) {
-                                    self.sinceId = ((Tweet *)self.tweets[0]).id;
-                               }
-                               [self.tableView reloadData];
+                               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                   NSLog(@"[HomeViewController fetchData] error: %@", error.description);
+                               }];
     }
-                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[HomeViewController fetchData] error: %@", error.description);
-    }];
 }
 
+- (void)processResponse:(id)responseObject withParams:(NSDictionary *)params {
+    NSError *error;
+    if (params) {
+        NSArray *newTweets = [MTLJSONAdapter
+                              modelsOfClass:[Tweet class]
+                              fromJSONArray:responseObject
+                              error:&error];
+        for (Tweet *tweet in newTweets) {
+            [self.tweets insertObject:tweet atIndex:0];
+        }
+    } else {
+        [self.tweets addObjectsFromArray:[MTLJSONAdapter
+                                          modelsOfClass:[Tweet class]
+                                          fromJSONArray:responseObject
+                                          error:&error]];
+    }
+    if (error) {
+        NSLog(@"[HomeViewController fetchData] transform error: %@", error.description);
+    }
+    NSLog(@"[HomeViewController fetchData] success row count: %d", self.tweets.count);
+    if (self.tweets.count > 0) {
+        self.sinceId = ((Tweet *)self.tweets[0]).id;
+    }
+    [self.tableView reloadData];
+}
 - (void)refresh:(id)sender {
     [self fetchData];
     [(UIRefreshControl *)sender endRefreshing];
@@ -166,17 +185,22 @@
                                      target:self
                                      action:@selector(showCompose)];
 
-//    UINavigationBar *navBar = ((ContainerViewController *)self.parentViewController).navigationBarView;
-//    UINavigationItem* item = [[UINavigationItem alloc] initWithTitle:@"Home"];
-//    item.rightBarButtonItem = composeButton;
-//    [navBar pushNavigationItem:item animated:YES];
-//
-//    navBar.tintColor = [UIColor whiteColor];
-//    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    UIImage *hamburgerIcon = [Utils imageWithImage:[UIImage imageNamed:@"HamburgerIcon"] scaledToSize:CGSizeMake(15, 15)];
+    UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc]
+                                        initWithImage:hamburgerIcon
+                                        landscapeImagePhone:nil
+                                        style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(hamburgerIconClicked:)];
 
     self.navigationItem.rightBarButtonItem = composeButton;
+    self.navigationItem.leftBarButtonItem = hamburgerButton;
 
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
+}
+
+- (void)hamburgerIconClicked:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hamburgerClicked" object:nil];
 }
 
 - (void)replyButtonClicked:(id)sender {
@@ -250,5 +274,12 @@
                            NSLog(@"[HomeViewController favorite] failure: %@", error.description);
                        }];
     }
+}
+
+- (void)onUserImageTap:(UITapGestureRecognizer *)tapGestureRecognizer {
+    Tweet *currentTweet = self.tweets[tapGestureRecognizer.view.tag];
+    ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
+    profileViewController.user = currentTweet.user;
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 @end

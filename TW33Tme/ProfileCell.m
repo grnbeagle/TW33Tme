@@ -56,6 +56,12 @@
 
         [Utils loadImageUrl:user.bannerImageUrl inImageView:self.bannerImage withAnimation:NO withSuccess:^{
 
+            UIImage *blurredBackground = [self.bannerImage.image applyBlurWithRadius:15 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+            self.bannerImage.image = blurredBackground;
+
+            blurredBackground = [self.bannerImage.image applyBlurWithRadius:15 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+            self.bannerImage.image = blurredBackground;
+
 //            UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.3];
 //            UIImage *blurredBackground = [bannerImage.image applyBlurWithRadius:5 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
 //
@@ -76,15 +82,10 @@
             // UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.3];
             NSLog(@"--> %f", distance);
 
-            CALayer *layer = self.bannerImage.layer;
-            [layer renderInContext:UIGraphicsGetCurrentContext()];
-            UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-            GPUImageGaussianBlurFilter * filter = [[GPUImageGaussianBlurFilter alloc] init];
-            filter.blurRadiusInPixels = 20;
-            UIImage * blurred = [filter imageByFilteringImage:image];
-
-//            UIImage *blurredBackground = [self.bannerImage.image applyBlurWithRadius:distance tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
-            self.bannerImage.image = blurred;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImage *blurredBackground = [self.bannerImage.image applyBlurWithRadius:15 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+                self.bannerImage.image = blurredBackground;
+            });
         }
     }
 }

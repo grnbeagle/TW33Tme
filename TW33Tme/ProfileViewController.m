@@ -7,24 +7,22 @@
 //
 
 #import "ProfileViewController.h"
-#import "User.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
-
+#import "User.h"
 #import "ProfileCell.h"
 #import "TweetCell.h"
 #import "StatsCell.h"
+#import "Utils.h"
 
 @interface ProfileViewController ()
-
+{
+    BOOL isAboutMe;
+}
 @property (strong, nonatomic) TwitterClient *client;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) TweetCell *stubCell;
-
 @property (strong, nonatomic) NSMutableArray *tweets;
-@property (strong, nonatomic) User *user;
-
 @end
 
 @implementation ProfileViewController
@@ -40,23 +38,28 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     if (self.user == nil) {
         self.user = [User currentUser];
+        isAboutMe = YES;
     }
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 
-    [self fetchData];
     [self.tableView registerNib:[UINib nibWithNibName:@"ProfileCell" bundle:nil] forCellReuseIdentifier:@"ProfileCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"TweetCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"StatsCell" bundle:nil] forCellReuseIdentifier:@"StatsCell"];
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-//    [self.tableView setBounces:NO];
 }
+
+-(void)viewDidAppear:(BOOL)animated {
+    [self setupUI];
+
+    [self fetchData];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -147,11 +150,29 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
     CGFloat distance = self.tableView.contentOffset.y;
     if (distance < 0) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"distanceChanged" object:[NSNumber numberWithFloat:distance]];
     }
+}
+
+- (void)setupUI {
+    if (!isAboutMe) {
+        return; // add a hamburger icon for About Me only
+    }
+    UIImage *hamburgerIcon = [Utils imageWithImage:[UIImage imageNamed:@"HamburgerIcon"] scaledToSize:CGSizeMake(15, 15)];
+    UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc]
+                                        initWithImage:hamburgerIcon
+                                        landscapeImagePhone:nil
+                                        style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(hamburgerIconClicked:)];
+
+    self.navigationItem.leftBarButtonItem = hamburgerButton;
+}
+
+- (void)hamburgerIconClicked:(id)sender {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hamburgerClicked" object:nil];
 }
 
 @end
