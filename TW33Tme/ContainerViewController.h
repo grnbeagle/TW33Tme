@@ -8,17 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol HamburgerMenuDelegate <NSObject>
+@interface ContainerViewController : UIViewController <UITabBarDelegate>
 
-- (void)toggleMenu;
-
-@end
-
-@interface ContainerViewController : UIViewController
-
-@property (nonatomic, assign) id<HamburgerMenuDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBarView;
-
 @property (strong, nonatomic) NSArray *viewControllers;
 
 @end

@@ -72,26 +72,16 @@
     [self displayContentController:self.navigationController];
 
     // Navigations
-    UITabBarItem *homeButton = [[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"FavIcon"] tag:0];
-    UITabBarItem *tabTwo = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:1];
 
-    [self.tabBarView setItems:@[homeButton, tabTwo] animated:YES];
-
-//    self.navigationBarView.translucent = NO;
-//    self.navigationBarView.barTintColor = [Utils getTwitterBlue];
-//    self.navigationBarView.tintColor = [UIColor whiteColor];
-
-    UIImage *hamburgerIcon = [Utils imageWithImage:[UIImage imageNamed:@"HamburgerIcon"] scaledToSize:CGSizeMake(15, 15)];
-    UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc]
-                                        initWithImage:hamburgerIcon
-                                        landscapeImagePhone:nil
-                                        style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(toggleMenu:)];
-    UINavigationItem *navItem = [[UINavigationItem alloc] initWithTitle:@"Home"];
-    navItem.leftBarButtonItem = hamburgerButton;
+    UITabBarItem *home = [[UITabBarItem alloc] initWithTitle:@"Timeline" image:[Utils imageWithImage:[UIImage imageNamed:@"TimelineIcon"] scaledToSize:CGSizeMake(20, 20)] tag:0];
+    UITabBarItem *profile = [[UITabBarItem alloc] initWithTitle:@"About Me" image:[Utils imageWithImage:[UIImage imageNamed:@"ProfileIcon"] scaledToSize:CGSizeMake(20, 20)] tag:1];
+    self.tabBarView.tintColor = [Utils getTwitterGray];
+    [self.tabBarView setItems:@[home, profile] animated:YES];
+    self.tabBarView.delegate = self;
 }
-- (void)toggleMenu:(id)sender {
-    [_delegate toggleMenu];
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    [self.navigationController setViewControllers:@[self.viewControllers[item.tag]]];
+    [self displayContentController:self.navigationController];
 }
 @end

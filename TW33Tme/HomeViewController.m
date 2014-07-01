@@ -39,6 +39,7 @@
         self.title = (self.mode == timelineView) ? @"Timeline" : @"Mentions";
         self.tweets = [[NSMutableArray alloc] init];
         self.client = [TwitterClient instance];
+        self.icon = [UIImage imageNamed: (self.mode == timelineView) ? @"TimelineIcon" : @"MentionIcon"];
     }
     return self;
 }
@@ -179,11 +180,13 @@
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
+    UIImage *composeIcon = [Utils imageWithImage:[UIImage imageNamed:@"ComposeIcon"] scaledToSize:CGSizeMake(15, 15)];
     UIBarButtonItem *composeButton = [[UIBarButtonItem alloc]
-                                     initWithTitle:@"Compose"
-                                     style:UIBarButtonItemStylePlain
-                                     target:self
-                                     action:@selector(showCompose)];
+                                      initWithImage:composeIcon
+                                      landscapeImagePhone:nil
+                                      style:UIBarButtonItemStylePlain
+                                      target:self
+                                      action:@selector(showCompose)];
 
     UIImage *hamburgerIcon = [Utils imageWithImage:[UIImage imageNamed:@"HamburgerIcon"] scaledToSize:CGSizeMake(15, 15)];
     UIBarButtonItem *hamburgerButton = [[UIBarButtonItem alloc]

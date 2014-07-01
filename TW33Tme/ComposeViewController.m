@@ -78,6 +78,8 @@
 
 - (void)setupUI {
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]
                                       initWithTitle:@"Cancel"

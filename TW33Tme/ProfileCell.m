@@ -13,12 +13,14 @@
 #import "GPUImage.h"
 
 @interface ProfileCell ()
+{
+    UIImage *sourceImage;
+}
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 
-@property (strong, nonatomic) UIImageView *bannerImage;
 @end
 
 @implementation ProfileCell
@@ -53,19 +55,9 @@
         self.bannerImage = [[UIImageView alloc] init];
         self.bannerImage.frame = CGRectMake(0, 0, self.frame.size.width, 300);
         self.bannerImage.contentMode = UIViewContentModeScaleAspectFill;
-
+        self.bannerImage.clipsToBounds = YES;
         [Utils loadImageUrl:user.bannerImageUrl inImageView:self.bannerImage withAnimation:NO withSuccess:^{
-
-            UIImage *blurredBackground = [self.bannerImage.image applyBlurWithRadius:15 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
-            self.bannerImage.image = blurredBackground;
-
-            blurredBackground = [self.bannerImage.image applyBlurWithRadius:15 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
-            self.bannerImage.image = blurredBackground;
-
-//            UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.3];
-//            UIImage *blurredBackground = [bannerImage.image applyBlurWithRadius:5 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
-//
-//            bannerImage.image = blurredBackground;
+            sourceImage = self.bannerImage.image;
         }];
 
         [self addSubview:self.bannerImage];
@@ -79,13 +71,12 @@
         if (self.bannerImage) {
             NSNumber *distanceNumber = [notification valueForKey:@"object"];
             CGFloat distance = abs([distanceNumber floatValue]);
-            // UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.3];
-            NSLog(@"--> %f", distance);
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIImage *blurredBackground = [self.bannerImage.image applyBlurWithRadius:15 tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
-                self.bannerImage.image = blurredBackground;
-            });
+            UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.3];
+            self.bannerImage.image = [sourceImage applyBlurWithRadius:distance tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+            CGRect newFrame = self.bannerImage.frame;
+            newFrame.origin.y = -distance;
+            newFrame.size.height = 155 + distance;
+            self.bannerImage.frame = newFrame;
         }
     }
 }

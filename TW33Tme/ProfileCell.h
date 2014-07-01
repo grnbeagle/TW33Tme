@@ -12,5 +12,6 @@
 @interface ProfileCell : UITableViewCell
 
 @property (strong, nonatomic) User *user;
+@property (strong, nonatomic) UIImageView *bannerImage;
 
 @end

@@ -26,13 +26,11 @@
 }
 
 - (void)setMenuItem:(UIViewController *)menuItem {
-//    if (menuItem[@"icon"] != nil) {
-//        [self.imageView setImage:[UIImage imageNamed:menuItem[@"icon"]]];
-//        self.imageView.alpha = 0.5;
-//    }
-//    [self.textLabel setText:menuItem[@"text"]];
-
     [self.textLabel setText:menuItem.title];
+    if ([menuItem respondsToSelector:@selector(icon)]) {
+        [self.imageView setImage:[menuItem performSelector:@selector(icon)]];
+        self.imageView.alpha = 0.5;
+    }
 }
 
 @end

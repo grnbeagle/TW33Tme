@@ -34,6 +34,7 @@
         self.title = @"Profile";
         self.tweets = [[NSMutableArray alloc] init];
         self.client = [TwitterClient instance];
+        self.icon = [UIImage imageNamed:@"ProfileIcon"];
     }
     return self;
 }

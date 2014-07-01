@@ -54,24 +54,4 @@
     dateFormatter.dateFormat = @"eee MMM dd HH:mm:ss ZZZZ yyyy";
     return dateFormatter;
 }
-
-+ (NSValueTransformer *)retweetCountJSONTransformer {
-    return [MTLValueTransformer transformerWithBlock:^id(id inObj) {
-        if (inObj == nil) {
-            return 0;
-        } else {
-            return inObj;
-        }
-    }];
-}
-
-+ (NSValueTransformer *)favouritesCountJSONTransformer {
-    return [MTLValueTransformer transformerWithBlock:^id(id inObj) {
-        if (inObj == nil) {
-            return 0;
-        } else {
-            return inObj;
-        }
-    }];
-}
 @end

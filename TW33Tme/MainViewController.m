@@ -21,10 +21,6 @@
 
 @implementation MainViewController
 {
-    UINavigationController *timelineNavController;
-    ProfileViewController *profileViewController;
-    UINavigationController *mentionsNavController;
-
     CGPoint panStartCoordinate;
     NSString *direction;
 }
@@ -34,29 +30,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         HomeViewController *homeViewController = [[HomeViewController alloc] initWithMode:timelineView];
-        //timelineNavController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
-
         HomeViewController *mentionsViewController = [[HomeViewController alloc] initWithMode:mentionsView];
-        //mentionsNavController = [[UINavigationController alloc] initWithRootViewController:mentionsViewController];
-
-        profileViewController = [[ProfileViewController alloc] init];
+        ProfileViewController *profileViewController = [[ProfileViewController alloc] init];
 
         self.viewControllers = @[homeViewController, profileViewController, mentionsViewController];
-
-
         self.containerViewController = [[ContainerViewController alloc] init];
-        self.containerViewController.delegate = self;
         self.containerViewController.viewControllers = self.viewControllers;
-
-//        UINavigationController *mainNavController = [[UINavigationController alloc] initWithRootViewController:self.containerViewController];
 
         [self.view addSubview:self.containerViewController.view];
         [self addChildViewController:_containerViewController];
         [_containerViewController didMoveToParentViewController:self];
-
-//        [self.view addSubview:mainNavController.view];
-//        [self addChildViewController:mainNavController];
-//        [mainNavController didMoveToParentViewController:self];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onSelectMenuItem:)
@@ -83,7 +66,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
@@ -97,7 +79,6 @@
         [_menuViewController didMoveToParentViewController:self];
         _menuViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
         [self showContainerViewWithShadow:YES withOffset:-2];
-
     }
     UIView *view = self.menuViewController.view;
     return view;

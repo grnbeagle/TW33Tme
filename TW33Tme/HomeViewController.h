@@ -16,6 +16,7 @@ typedef enum {
 @interface HomeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property ViewMode mode;
+@property (strong, nonatomic) UIImage *icon;
 
 -(id)initWithMode:(ViewMode)aMode;
 
