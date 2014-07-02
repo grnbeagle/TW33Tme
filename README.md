@@ -13,34 +13,31 @@ Time spent: approximately 20 hours
 ### Features
 
 #### Required
-- [x] Hamburger menu
-- [x] _Hamburger menu_: Dragging anywhere in the view should reveal the menu.
-- [x] _Hamburger menu_: The menu should include links to your profile, the home timeline, and the mentions view.
-- [x] _Profile page_: contains the user header view.
-- [x] _Profile page_: contains a section with the users basic stats.
-- [x] _Timeline_: tapping on a user image should bring up that user's profile page
+- [x] __Hamburger menu__: Dragging anywhere in the view should reveal the menu.
+- [x] __Hamburger menu__: The menu should include links to your profile, the home timeline, and the mentions view.
+- [x] __Profile page__: contains the user header view.
+- [x] __Profile page__: contains a section with the users basic stats.
+- [x] __Timeline__: tapping on a user image should bring up that user's profile page
 
 #### Optional
-- [x] Profile page: implement the paging view for the user description.
-- [x] Pulling down the profile page should blur and resize the header image.
-- [ ] As the paging view moves, increase the opacity of the background screen.
+- [x] __Profile page__: implement the paging view for the user description.
+- [x] __Profile page__: Pulling down the profile page should blur and resize the header image.
+- [ ] __Profile page__: As the paging view moves, increase the opacity of the background screen.
 - [ ] Account switching
 
 ### Walkthrough
 ![Video Walkthrough](TW33Tme-part2.gif)
 
 ### Credits
-* [Best practices for handling changes to the UINavigationItem of child view controllers in a container controller?](http://stackoverflow.com/questions/18002747/best-practices-for-handling-changes-to-the-uinavigationitem-of-child-view-contro)
-* [How to Create a Slide-Out Navigation Panel](http://www.raywenderlich.com/32054/how-to-create-a-slide-out-navigation-like-facebook-and-path
-* http://stackoverflow.com/questions/18773239/how-to-fix-uitableview-separator-on-ios-7)
-* http://stackoverflow.com/questions/2658738/the-simplest-way-to-resize-an-uiimage
-* http://stackoverflow.com/questions/8952688/didselectrowatindexpath-not-being-called/9248827#9248827
+* [How to Create a Slide-Out Navigation Panel](http://www.raywenderlich.com/32054/how-to-create-a-slide-out-navigation-like-facebook-and-path)
+* [How to fix UITableView separator on iOS 7](http://stackoverflow.com/questions/18773239/how-to-fix-uitableview-separator-on-ios-7)
+* [The simplest way to resize an UIImage?](http://stackoverflow.com/questions/2658738/the-simplest-way-to-resize-an-uiimage)
 * Icons
-  * http://thenounproject.com/term/menu/53129/
-  * http://thenounproject.com/term/user/7078/
-  * http://thenounproject.com/term/timeline/8254/
-  * http://thenounproject.com/term/speech-bubble/48626/
-  * http://thenounproject.com/term/edit/31085/
+  * [Menu](http://thenounproject.com/term/menu/53129/)
+  * [User](http://thenounproject.com/term/user/7078/)
+  * [Timeline](http://thenounproject.com/term/timeline/8254/)
+  * [Speech bubble](http://thenounproject.com/term/speech-bubble/48626/)
+  * [Edit](http://thenounproject.com/term/edit/31085/)
 
 
 Part 1
