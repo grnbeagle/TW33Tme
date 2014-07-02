@@ -12,6 +12,6 @@
 @interface ProfileCell : UITableViewCell
 
 @property (strong, nonatomic) User *user;
-@property (strong, nonatomic) UIImageView *bannerImage;
+@property BOOL isSecondary; // Indicate it's the second page
 
 @end

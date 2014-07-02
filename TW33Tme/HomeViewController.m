@@ -240,7 +240,6 @@
         [client retweetWithId:currentTweet.id
                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                           NSLog(@"[HomeViewController retweet] success");
-                          NSLog(@"%@", responseObject);
                           currentTweet.retweeted = YES;
                           currentTweet.retweetCount += 1;
                           currentTweet.retweetedStatus = [MTLJSONAdapter modelOfClass:Tweet.class fromJSONDictionary:responseObject error:nil];

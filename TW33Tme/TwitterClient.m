@@ -26,10 +26,6 @@
                     initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]
                     consumerKey:@"oktJjqH6ZF1cFT6AGSB532une"
                     consumerSecret:@"pozqvOv9OXe8Gb8jqvKtzzBAgglGIkTtsbHGWEko47xQktIl2n"];
-//        instance = [[TwitterClient alloc]
-//                    initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]
-//                    consumerKey:@"oktJjqH6ZF1cFT6AGSB532une"
-//                    consumerSecret:@"pozqvOv9OXe8Gb8jqvKtzzBAgglGIkTtsbHGWEko47xQktIl2n"];
     });
 
     return instance;

@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (strong, nonatomic) UIImageView *bannerImage;
 
 @end
 
@@ -48,16 +50,26 @@
 
 - (void)setUser:(User *)user {
     [Utils loadImageUrl:user.profileImageUrl inImageView:self.imageView withAnimation:NO];
-    self.nameLabel.text = user.name;
-    self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", user.screenName];
 
+    if (self.isSecondary) {
+        self.locationLabel.hidden = NO;
+        self.locationLabel.text = user.place;
+    } else {
+        self.nameLabel.hidden = NO;
+        self.screenNameLabel.hidden = NO;
+        self.imageView.hidden = NO;
+        self.nameLabel.text = user.name;
+        self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", user.screenName];
+    }
     if (user.bannerImageUrl != nil && self.bannerImage == nil) {
         self.bannerImage = [[UIImageView alloc] init];
         self.bannerImage.frame = CGRectMake(0, 0, self.frame.size.width, 300);
         self.bannerImage.contentMode = UIViewContentModeScaleAspectFill;
-        self.bannerImage.clipsToBounds = YES;
+        self.imageView.clipsToBounds = YES;
         [Utils loadImageUrl:user.bannerImageUrl inImageView:self.bannerImage withAnimation:NO withSuccess:^{
             sourceImage = self.bannerImage.image;
+            UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.3];
+            self.bannerImage.image = [sourceImage applyBlurWithRadius:0 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
         }];
 
         [self addSubview:self.bannerImage];

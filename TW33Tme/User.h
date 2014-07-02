@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *profileImageUrl;
 @property (nonatomic, strong) NSString *bannerImageUrl;
 @property (nonatomic, strong) NSString *screenName;
+@property (nonatomic, strong) NSString *place;
 @property (assign) int following;
 @property (assign) int followersCount;
 @property (assign) int friendsCount;

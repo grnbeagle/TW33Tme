@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "TweetViewController.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
 #import "User.h"
@@ -18,11 +19,15 @@
 @interface ProfileViewController ()
 {
     BOOL isAboutMe;
+    CGPoint panStartCoordinate;
+    NSString *direction;
 }
 @property (strong, nonatomic) TwitterClient *client;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) TweetCell *stubCell;
 @property (strong, nonatomic) NSMutableArray *tweets;
+@property (strong, nonatomic) UIScrollView *scrollView;
+@property (strong, nonatomic) UIPageControl *pageControl;
 @end
 
 @implementation ProfileViewController
@@ -120,14 +125,103 @@
     return 2; // one for stat and another for tweets
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+    TweetViewController *tweetViewController = [[TweetViewController alloc] init];
+    tweetViewController.tweet = self.tweets[indexPath.row];
+    [self.navigationController pushViewController:tweetViewController animated:YES];
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        ProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProfileCell"];
-        cell.user = self.user;
-        return cell;
+        UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 155)];
+        container.clipsToBounds = NO;
+
+        // Create first page cell
+        ProfileCell *firstPage = [tableView dequeueReusableCellWithIdentifier:@"ProfileCell"];
+        firstPage.user = self.user;
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 155)];
+        //self.scrollView = [[UIScrollView alloc] init];
+        CGRect firstFrame;
+        firstFrame.origin.x = 0;
+        firstFrame.origin.y = 0;
+        firstFrame.size = self.scrollView.frame.size;
+
+        firstPage.frame = firstFrame;
+        [self.scrollView addSubview:firstPage];
+
+        // Create second page cell
+        ProfileCell *secondPage = [tableView dequeueReusableCellWithIdentifier:@"ProfileCell"];
+        secondPage.isSecondary = YES;
+        secondPage.user = self.user;
+        CGRect secondFrame;
+        secondFrame.origin.x = self.view.frame.size.width;
+        secondFrame.origin.y = 0;
+        secondFrame.size = self.scrollView.frame.size;
+        secondPage.frame = secondFrame;
+        [self.scrollView addSubview:secondPage];
+
+        [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width * 2, self.scrollView.frame.size.height)];
+
+        // We need to touch it
+        UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(onPan:)];
+        panGesture.cancelsTouchesInView = NO;
+        [self.scrollView addGestureRecognizer:panGesture];
+
+        [container addSubview:self.scrollView];
+        self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 115, self.view.frame.size.width, 50)];
+        [self.pageControl setNumberOfPages:2];
+        [container addSubview:self.pageControl];
+        [self.pageControl addTarget:self action:@selector(onPageControlClicked:) forControlEvents:UIControlEventValueChanged];
+
+        return container;
     } else {
         return nil;
     }
+}
+
+- (IBAction)onPan:(UIPanGestureRecognizer *)gestureRecognizer {
+    CGPoint point = [gestureRecognizer locationInView:self.view];
+    switch (gestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            panStartCoordinate = point;
+            break;
+        case UIGestureRecognizerStateChanged: {
+            float distance = point.x - panStartCoordinate.x;
+            if (distance > 0) { // drag right
+                direction = @"R";
+            } else {
+                direction = @"L";
+            }
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            if ([direction isEqualToString:@"R"]) {
+                self.pageControl.currentPage -= 1;
+            } else {
+                self.pageControl.currentPage += 1;
+            }
+            [self changePage];
+            break;
+        }
+        case UIGestureRecognizerStateCancelled:
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)onPageControlClicked:(id)sender {
+    [self changePage];
+}
+
+- (void)changePage {
+    CGRect frame;
+    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
+    frame.origin.y = 0;
+    frame.size = self.scrollView.frame.size;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
 - (void)fetchData {

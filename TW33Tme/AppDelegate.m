@@ -26,14 +26,8 @@
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-//    MainViewController *mainViewController = [[MainViewController alloc] init];
-//    self.window.rootViewController = mainViewController;
-
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
     self.window.rootViewController = loginViewController;
-
-//    MenuViewController *menuViewController = [[MenuViewController alloc] init];
-//    self.window.rootViewController = menuViewController;
 
     [self.window makeKeyAndVisible];
     return YES;

@@ -32,7 +32,8 @@ static NSString *storeKey = @"current_user";
              @"following": @"friends_count",
              @"followersCount": @"followers_count",
              @"friendsCount": @"friends_count",
-             @"statusesCount": @"statuses_count"
+             @"statusesCount": @"statuses_count",
+             @"place": @"location"
              };
 }
 
@@ -58,7 +59,6 @@ static NSString *storeKey = @"current_user";
     TwitterClient *client = [TwitterClient instance];
     [client verifyCredentialWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"[User verifyCurrentUser] success");
-        NSLog(@"%@", responseObject);
         User *user = [MTLJSONAdapter modelOfClass:[User class] fromJSONDictionary:responseObject error:nil];
         [User setCurrentUser:user];
         if (success) {

@@ -15,12 +15,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mdW-5B-r9V">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mdW-5B-r9V">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="mdW-5B-r9V" secondAttribute="trailing" id="FSv-XN-dMu"/>
+                <constraint firstItem="mdW-5B-r9V" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="GYw-Pa-mNz"/>
+                <constraint firstItem="mdW-5B-r9V" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MPR-IE-u5H"/>
+                <constraint firstAttribute="bottom" secondItem="mdW-5B-r9V" secondAttribute="bottom" id="U4L-Pe-KuE"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
