@@ -2,12 +2,55 @@ TW33Tme
 ========
 Twitter iOS Demo App
 
-This is an iOS 7 demo app displaying twitter home timeline and supporting features like compose, retweet, and favorite using [Twitter API](https://dev.twitter.com/docs/api/1.1). It is created as part of [CodePath](http://codepath.com/) course work. (June 24, 2014)
+This is an iOS 7 demo app displaying twitter home timeline and supporting features like compose, retweet, and favorite using [Twitter API](https://dev.twitter.com/docs/api/1.1). It is created as part of [CodePath](http://codepath.com/) course work. 
+
+Part 2
+--------
+July 1, 2014
+
+Time spent: approximately 20 hours 
+
+### Features
+
+#### Required
+- [x] Hamburger menu
+- [x] _Hamburger menu_: Dragging anywhere in the view should reveal the menu.
+- [x] _Hamburger menu_: The menu should include links to your profile, the home timeline, and the mentions view.
+- [x] _Profile page_: contains the user header view.
+- [x] _Profile page_: contains a section with the users basic stats.
+- [x] _Timeline_: tapping on a user image should bring up that user's profile page
+
+#### Optional
+- [x] Profile page: implement the paging view for the user description.
+- [x] Pulling down the profile page should blur and resize the header image.
+- [ ] As the paging view moves, increase the opacity of the background screen.
+- [ ] Account switching
+
+### Walkthrough
+![Video Walkthrough](TW33Tme-part2.gif)
+
+### Credits
+* [Best practices for handling changes to the UINavigationItem of child view controllers in a container controller?](http://stackoverflow.com/questions/18002747/best-practices-for-handling-changes-to-the-uinavigationitem-of-child-view-contro)
+* [How to Create a Slide-Out Navigation Panel](http://www.raywenderlich.com/32054/how-to-create-a-slide-out-navigation-like-facebook-and-path
+* http://stackoverflow.com/questions/18773239/how-to-fix-uitableview-separator-on-ios-7)
+* http://stackoverflow.com/questions/2658738/the-simplest-way-to-resize-an-uiimage
+* http://stackoverflow.com/questions/8952688/didselectrowatindexpath-not-being-called/9248827#9248827
+* Icons
+  * http://thenounproject.com/term/menu/53129/
+  * http://thenounproject.com/term/user/7078/
+  * http://thenounproject.com/term/timeline/8254/
+  * http://thenounproject.com/term/speech-bubble/48626/
+  * http://thenounproject.com/term/edit/31085/
+
+
+Part 1
+--------
+June 24, 2014
 
 Time spent: approximately 15 hours
 
-Features
----------
+### Features
+
 #### Required
 - [x] User can sign in using OAuth login flow
 - [x] User can view last 20 tweets from their home timeline
@@ -26,12 +69,10 @@ Features
 - [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
 
-Walkthrough
-------------
+### Walkthrough
 ![Video Walkthrough](TW33Tme-walkthrough.gif)
 
-Credits
----------
+### Credits
 * [Twitter API](https://dev.twitter.com/docs/api/1.1)
 * [Icons](http://thenounproject.com)
   * http://thenounproject.com/term/refresh/2223/
